@@ -1,4 +1,5 @@
 import 'package:billing_app/constants.dart';
+import 'package:billing_app/controllers/accounts_controller.dart';
 import 'package:billing_app/views/home_views/accounts_list_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeView extends StatelessWidget {
+  final AccountsController accountsController = Get.put(AccountsController());
   @override
   Widget build(BuildContext context) {
     Widget blockContent(String text, Color color, double size) {
