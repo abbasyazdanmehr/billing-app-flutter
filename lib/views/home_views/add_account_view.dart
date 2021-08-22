@@ -11,7 +11,7 @@ class AddAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _inputName = '';
-    int _inputDeposit = 0;
+    int _inputBalance = 0;
     return Scaffold(
       backgroundColor: Constants.themeColor,
       appBar: Constants.customAppBar(),
@@ -57,7 +57,7 @@ class AddAccount extends StatelessWidget {
                             }
                           },
                           onSaved: (String value) =>
-                              _inputDeposit = int.parse(value),
+                              _inputBalance = int.parse(value),
                         ),
                         Obx(
                           () {
@@ -81,7 +81,7 @@ class AddAccount extends StatelessWidget {
                               _formKey.currentState.save();
                               print(_inputName);
                               accountsController.addAccount(BankAccount(
-                                  name: _inputName, deposit: _inputDeposit));
+                                  name: _inputName, balance: _inputBalance));
                             }
                           },
                           child: Text('Add Account'),

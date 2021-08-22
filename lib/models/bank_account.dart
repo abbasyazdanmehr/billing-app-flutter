@@ -4,9 +4,14 @@ import 'package:flutter/cupertino.dart';
 
 class BankAccount {
   String name;
-  int deposit = 0;
+  int balance = 0;
+  String description;
   User user;
   List<Report> reports = [];
   BankAccount(
-      {@required this.name, @required this.deposit, this.user, this.reports});
+      {@required this.name,
+      @required this.balance,
+      this.user,
+      this.reports,
+      this.description});
 }

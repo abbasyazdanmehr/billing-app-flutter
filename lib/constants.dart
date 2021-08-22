@@ -28,7 +28,7 @@ class Constants {
           width: double.infinity,
           height: double.infinity,
           borderRadius: 10,
-          blur: 4,
+          blur: 20,
           alignment: Alignment.bottomCenter,
           border: 2,
           linearGradient: LinearGradient(
@@ -41,7 +41,7 @@ class Constants {
               ],
               stops: [
                 0.1,
-                0.8, // low: glass   high: plastic
+                0.5, // low: glass   high: plastic
               ]),
           borderGradient: LinearGradient(
             begin: Alignment.topLeft,

@@ -10,7 +10,16 @@ class AccountsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget accountContent(index) {
-      return Text(accountsController.accounts[index].name);
+      return Align(
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(accountsController.accounts[index].name),
+            Text(accountsController.accounts[index].balance.toString())
+          ],
+        ),
+      );
     }
 
     return Scaffold(

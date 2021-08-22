@@ -1,0 +1,4 @@
+enum TurnoverType {
+  Income,
+  Cost,
+}

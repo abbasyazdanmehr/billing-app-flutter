@@ -12,16 +12,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newTextTheme = Theme.of(context).textTheme.apply(
-        bodyColor: Constants.detailColor,
-        displayColor: Constants.detailColor,
-        fontFamily: 'dubay');
+          bodyColor: Constants.detailColor,
+          displayColor: Constants.detailColor,
+          fontFamily: 'dubay',
+        );
 
     return Sizer(builder: (context, orientation, deviceType) {
       return GetMaterialApp(
         title: 'Billing App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: Constants.themeColor,
           fontFamily: 'dubay',
           textTheme: newTextTheme,
         ),
