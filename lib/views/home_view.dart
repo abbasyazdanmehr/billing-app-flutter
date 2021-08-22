@@ -6,76 +6,86 @@ import 'package:sizer/sizer.dart';
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget accountsContent() {
+    Widget blockContent(String text, Color color, double size) {
       return Align(
         alignment: Alignment.center,
         child: Text(
-          'Accounts',
+          text,
           style: TextStyle(
-            color: Constants.darkColor,
-            fontSize: 30.sp,
+            color: color,
+            fontSize: size.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
       );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Constants.responsiveGlassBlock(
+    Widget accounts(context) {
+      return Constants.responsiveGlassBlock(
+        context: context,
+        widthRatio: 1,
+        heightRatio: 0.2,
+        content: blockContent('Accounts', Constants.hideColor, 30),
+      );
+    }
+
+    Widget bills(context) {
+      return Constants.responsiveGlassBlock(
           context: context,
-          widthRatio: 1,
+          widthRatio: 0.3,
           heightRatio: 0.2,
-          content: accountsContent(),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                Constants.responsiveGlassBlock(
-                  context: context,
-                  widthRatio: 0.3,
-                  heightRatio: 0.2,
-                  content: Text(
-                    'smaller',
-                  ),
-                ),
-                Constants.responsiveGlassBlock(
-                  context: context,
-                  widthRatio: 0.3,
-                  heightRatio: 0.35,
-                  content: Text(
-                    'smaller',
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Constants.responsiveGlassBlock(
-                  context: context,
-                  widthRatio: 0.66,
-                  heightRatio: 0.4,
-                  content: Text(
-                    'smaller',
-                  ),
-                ),
-                Constants.responsiveGlassBlock(
-                  context: context,
-                  widthRatio: 0.66,
-                  heightRatio: 0.15,
-                  content: Text(
-                    'smaller',
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
+          content: blockContent('Bills', Constants.detailColor, 20));
+    }
+
+    Widget costs(context) {
+      return Constants.responsiveGlassBlock(
+          context: context,
+          widthRatio: 0.3,
+          heightRatio: 0.34,
+          content: blockContent('Costs', Constants.darkColor, 20));
+    }
+
+    Widget futureCosts(context) {
+      return Constants.responsiveGlassBlock(
+          context: context,
+          widthRatio: 0.66,
+          heightRatio: 0.4,
+          content: blockContent('FutureCosts', Constants.lightColor, 20));
+    }
+
+    Widget incomes(context) {
+      return Constants.responsiveGlassBlock(
+          context: context,
+          widthRatio: 0.66,
+          heightRatio: 0.14,
+          content: blockContent('Incomes', Constants.themeColor, 20));
+    }
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          accounts(context),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  bills(context),
+                  costs(context),
+                ],
+              ),
+              Column(
+                children: [
+                  futureCosts(context),
+                  incomes(context),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

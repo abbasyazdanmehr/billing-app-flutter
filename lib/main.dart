@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newTextTheme = Theme.of(context).textTheme.apply(
-          bodyColor: Constants.detailColor,
-          displayColor: Constants.detailColor,
-        );
+        bodyColor: Constants.detailColor,
+        displayColor: Constants.detailColor,
+        fontFamily: 'dubay');
 
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
