@@ -3,6 +3,7 @@ import 'package:billing_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 
 class BankAccount {
+  int id;
   String name;
   int balance = 0;
   String description;
@@ -13,5 +14,6 @@ class BankAccount {
       @required this.balance,
       this.user,
       this.turuovers,
-      this.description});
+      this.description,
+      this.id});
 }
