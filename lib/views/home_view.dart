@@ -1,6 +1,7 @@
 import 'package:billing_app/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -12,7 +13,7 @@ class HomeView extends StatelessWidget {
           'Accounts',
           style: TextStyle(
             color: Constants.darkColor,
-            fontSize: 30,
+            fontSize: 30.sp,
             fontWeight: FontWeight.bold,
           ),
         ),

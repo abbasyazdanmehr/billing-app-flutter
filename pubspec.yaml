@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.3.8
   glassmorphism: ^2.0.1 
+  sizer: ^2.0.13
 
 dev_dependencies:
   flutter_test:
