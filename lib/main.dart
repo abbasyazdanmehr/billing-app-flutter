@@ -1,4 +1,5 @@
-import 'package:billing_app/pages/base.dart';
+import 'package:billing_app/constants.dart';
+import 'package:billing_app/views/base._view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,12 +9,20 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final newTextTheme = Theme.of(context).textTheme.apply(
+          bodyColor: Constants.detailColor,
+          displayColor: Constants.detailColor,
+        );
+
     return MaterialApp(
       title: 'Billing App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
+        fontFamily: 'dubay',
+        textTheme: newTextTheme,
       ),
-      home: Base(),
+      home: BaseView(0),
     );
   }
 }
