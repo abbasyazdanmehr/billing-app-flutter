@@ -44,10 +44,7 @@ class _BaseViewState extends State<BaseView> {
     print(size.width.toString() + 'px');
     print(size.height.toString() + 'px');
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Billing'),
-        centerTitle: true,
-      ),
+      appBar: Constants.customAppBar(),
       body: Stack(
         children: [
           Container(

@@ -1,6 +1,7 @@
 import 'package:billing_app/constants.dart';
 import 'package:billing_app/views/base._view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'dubay');
 
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
+      return GetMaterialApp(
         title: 'Billing App',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

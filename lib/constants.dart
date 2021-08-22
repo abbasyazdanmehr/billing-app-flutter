@@ -8,6 +8,14 @@ class Constants {
   static const Color darkColor = Colors.black;
   static const Color lightColor = Colors.amber;
 
+  static Widget customAppBar() {
+    return AppBar(
+      title: Text('Billing'),
+      centerTitle: true,
+      actions: [IconButton(onPressed: () {}, icon: Icon(Icons.settings))],
+    );
+  }
+
   static Widget responsiveGlassBlock(
       {BuildContext context, heightRatio, widthRatio, Widget content}) {
     final Size size = MediaQuery.of(context).size;

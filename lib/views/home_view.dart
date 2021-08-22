@@ -1,20 +1,27 @@
 import 'package:billing_app/constants.dart';
+import 'package:billing_app/views/home_views/accounts_list_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget blockContent(String text, Color color, double size) {
-      return Align(
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: TextStyle(
-            color: color,
-            fontSize: size.sp,
-            fontWeight: FontWeight.bold,
+      return TextButton(
+        onPressed: () {
+          Get.to(AccountsList());
+        },
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: color,
+              fontSize: size.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       );
