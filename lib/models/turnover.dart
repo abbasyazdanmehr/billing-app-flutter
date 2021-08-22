@@ -3,6 +3,7 @@ import 'package:billing_app/models/bank_account.dart';
 import 'package:flutter/cupertino.dart';
 
 class Turnover {
+  //تراکنش یا گردش حساب
   int mount;
   BankAccount bankAccount;
   String description;
