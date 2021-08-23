@@ -1,9 +1,7 @@
 import 'package:billing_app/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/controllers/small_object_controller.dart';
-import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/models/turnover.dart';
-import 'package:billing_app/views/home_views/turnover_list_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

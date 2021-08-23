@@ -1,5 +1,4 @@
 import 'package:billing_app/enums/turnover_type.dart';
-import 'package:billing_app/models/turnover.dart';
 import 'package:get/get.dart';
 
 class SmallObjectController extends GetxController {

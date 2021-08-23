@@ -1,5 +1,4 @@
 import 'package:billing_app/constants.dart';
-import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_view.dart';
 import 'package:billing_app/views/home_views/turnover_list_view.dart';
 import 'package:billing_app/views/profile_view.dart';
