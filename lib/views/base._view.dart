@@ -52,7 +52,7 @@ class _BaseViewState extends State<BaseView> {
           child: Text('Turnovers'),
           onPressed: () {
             Navigator.pop(context);
-            Get.to(TurnoverListView(TurnoverType.All));
+            Get.to(TurnoverListView());
           },
         ),
       ),

@@ -16,6 +16,19 @@ class Constants {
     );
   }
 
+  static isInteger(String string) {
+    if (string == null || string.isEmpty) {
+      return false;
+    }
+    final number = int.tryParse(string);
+
+    if (number == null) {
+      return false;
+    }
+
+    return true;
+  }
+
   static Widget responsiveGlassBlock(
       {BuildContext context, heightRatio, widthRatio, Widget content}) {
     final Size size = MediaQuery.of(context).size;
@@ -35,13 +48,13 @@ class Constants {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFFffffff).withOpacity(0.5),
+                Color(0xFFffffff).withOpacity(0.8),
                 Color(0xFFFFFFFF)
-                    .withOpacity(0.001), // low: glass   high: plastic
+                    .withOpacity(0.01), // low: glass   high: plastic
               ],
               stops: [
-                0.1,
-                0.5, // low: glass   high: plastic
+                0.3,
+                0.8, // low: glass   high: plastic
               ]),
           borderGradient: LinearGradient(
             begin: Alignment.topLeft,

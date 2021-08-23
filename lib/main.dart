@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Constants.themeColor,
           fontFamily: 'dubay',
+          scaffoldBackgroundColor: Constants.hideColor,
           textTheme: newTextTheme,
         ),
         home: BaseView(0),

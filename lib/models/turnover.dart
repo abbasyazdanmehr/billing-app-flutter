@@ -10,7 +10,7 @@ class Turnover {
   BankAccount bankAccount;
   String description;
   DateTime time;
-  TurnoverType turnoverType;
+  TurnoverType turnoverType = TurnoverType.All;
   User from;
   User to;
   Turnover(
@@ -18,7 +18,7 @@ class Turnover {
       this.bankAccount,
       this.description,
       this.time,
-      this.turnoverType,
+      @required this.turnoverType,
       this.from,
       this.to,
       this.id});
