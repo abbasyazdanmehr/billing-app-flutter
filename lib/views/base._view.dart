@@ -1,8 +1,11 @@
 import 'package:billing_app/constants.dart';
+import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_view.dart';
+import 'package:billing_app/views/home_views/turnover_list_view.dart';
 import 'package:billing_app/views/profile_view.dart';
 import 'package:billing_app/views/report_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BaseView extends StatefulWidget {
   final int index;
@@ -44,6 +47,15 @@ class _BaseViewState extends State<BaseView> {
     print(size.width.toString() + 'px');
     print(size.height.toString() + 'px');
     return Scaffold(
+      drawer: Drawer(
+        child: ElevatedButton(
+          child: Text('Turnovers'),
+          onPressed: () {
+            Navigator.pop(context);
+            Get.to(TurnoverListView(TurnoverType.All));
+          },
+        ),
+      ),
       appBar: Constants.customAppBar(),
       body: Stack(
         children: [

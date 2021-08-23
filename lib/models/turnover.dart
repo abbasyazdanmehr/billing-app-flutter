@@ -3,7 +3,7 @@ import 'package:billing_app/models/bank_account.dart';
 import 'package:billing_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 
-//تراکنش یا گردش حساب
+//تراکنش یا گردش حساب // also history is good name for this class
 class Turnover {
   int id;
   int mount;
