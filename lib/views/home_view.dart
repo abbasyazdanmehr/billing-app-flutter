@@ -1,17 +1,16 @@
 import 'package:billing_app/constants.dart';
 import 'package:billing_app/controllers/accounts_controller.dart';
+import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_views/accounts_list_view.dart';
 import 'package:billing_app/views/home_views/bills_list_view.dart';
-import 'package:billing_app/views/home_views/costs_list_view.dart';
-import 'package:billing_app/views/home_views/future_costs_list_view.dart';
-import 'package:billing_app/views/home_views/incomes_list_view.dart';
+import 'package:billing_app/views/home_views/turnover_list_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeView extends StatelessWidget {
-  final AccountsController accountsController = Get.put(AccountsController());
+  final ListViewController accountsController = Get.put(ListViewController());
   @override
   Widget build(BuildContext context) {
     Widget accounts(context) {
@@ -45,7 +44,7 @@ class HomeView extends StatelessWidget {
         heightRatio: 0.2,
         content: TextButton(
           onPressed: () {
-            Get.to(IncomesListView());
+            Get.to(TurnoverListView(TurnoverType.Income));
           },
           child: Align(
             alignment: Alignment.center,
@@ -69,7 +68,7 @@ class HomeView extends StatelessWidget {
         heightRatio: 0.34,
         content: TextButton(
           onPressed: () {
-            Get.to(CostsListView());
+            Get.to(TurnoverListView(TurnoverType.Cost));
           },
           child: Align(
             alignment: Alignment.center,
@@ -117,7 +116,7 @@ class HomeView extends StatelessWidget {
         heightRatio: 0.14,
         content: TextButton(
           onPressed: () {
-            Get.to(FutureCostsListView());
+            Get.to(TurnoverListView(TurnoverType.FutureCost));
           },
           child: Align(
             alignment: Alignment.center,

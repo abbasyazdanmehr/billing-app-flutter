@@ -3,7 +3,9 @@ import 'package:billing_app/controllers/accounts_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BillsListView extends StatelessWidget {
+class TurnoverListView extends StatelessWidget {
+  final turnoverTypeView;
+  TurnoverListView(this.turnoverTypeView);
   final controller = Get.put(ListViewController());
   @override
   Widget build(BuildContext context) {
@@ -14,9 +16,13 @@ class BillsListView extends StatelessWidget {
           () {
             return Column(
               children: [
-                for (var i = 0; i < controller.bills.length; i++)
-                  Text('Hello World'),
-                Text(controller.bills.length.toString())
+                for (var i = 0; i < controller.turnovers.length; i++)
+                  if (turnoverTypeView ==
+                      controller.turnovers[i].turnoverTypeView)
+                    Text('Hello World'),
+                Text(
+                  controller.bills.length.toString(),
+                )
               ],
             );
           },
