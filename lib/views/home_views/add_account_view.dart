@@ -1,4 +1,4 @@
-import 'package:billing_app/constants.dart';
+import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/models/bank_account.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,7 +53,7 @@ class AddAccountView extends StatelessWidget {
               Obx(
                 () {
                   return Text(
-                    controller.accounts.length.toString(),
+                    controller.bankAccounts.length.toString(),
                   );
                 },
               ),

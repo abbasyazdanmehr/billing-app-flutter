@@ -1,11 +1,11 @@
-import 'package:billing_app/constants.dart';
+import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/views/home_views/add_account_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AccountsList extends StatelessWidget {
+class AccountsListView extends StatelessWidget {
   final controller = Get.put(ListViewController());
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class AccountsList extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(controller.accounts[index].name),
-              Text(controller.accounts[index].balance.toString()),
+              Text(controller.bankAccounts[index].name),
+              Text(controller.bankAccounts[index].balance.toString()),
             ],
           ),
         ),
@@ -35,7 +35,7 @@ class AccountsList extends StatelessWidget {
         child: Obx(() {
           return Column(
             children: [
-              for (var i = 0; i < controller.accounts.length; i++)
+              for (var i = 0; i < controller.bankAccounts.length; i++)
                 accountContent(i),
             ],
           );

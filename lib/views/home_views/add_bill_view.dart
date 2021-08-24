@@ -1,4 +1,4 @@
-import 'package:billing_app/constants.dart';
+import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/models/bill.dart';
 import 'package:flutter/cupertino.dart';

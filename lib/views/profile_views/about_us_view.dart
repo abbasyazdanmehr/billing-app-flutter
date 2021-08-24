@@ -1,7 +1,7 @@
-import 'package:billing_app/constants.dart';
+import 'package:billing_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
-class AboutUs extends StatelessWidget {
+class AboutUsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

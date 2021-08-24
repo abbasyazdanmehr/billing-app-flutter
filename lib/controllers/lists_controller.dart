@@ -4,7 +4,7 @@ import 'package:billing_app/models/turnover.dart';
 import 'package:get/get.dart';
 
 class ListViewController extends GetxController {
-  var accounts = [].obs;
+  var bankAccounts = [].obs;
   var bills = [].obs;
   var turnovers = [].obs;
   @override
@@ -13,7 +13,7 @@ class ListViewController extends GetxController {
   }
 
   addAccount(BankAccount account) {
-    accounts.add(account);
+    bankAccounts.add(account);
   }
 
   addBill(Bill bill) {

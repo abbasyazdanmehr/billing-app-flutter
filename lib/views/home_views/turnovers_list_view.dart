@@ -1,4 +1,4 @@
-import 'package:billing_app/constants.dart';
+import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/controllers/small_object_controller.dart';
 import 'package:billing_app/views/home_views/add_turnover_view.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class TurnoverListView extends StatelessWidget {
+class TurnoversListView extends StatelessWidget {
   final controller = Get.put(ListViewController());
   final smallController = Get.put(SmallObjectController());
   @override

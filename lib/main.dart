@@ -1,5 +1,5 @@
-import 'package:billing_app/constants.dart';
-import 'package:billing_app/views/base._view.dart';
+import 'package:billing_app/constants/constants.dart';
+import 'package:billing_app/views/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';

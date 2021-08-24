@@ -1,4 +1,4 @@
-import 'package:billing_app/constants.dart';
+import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/controllers/notes_database.dart';
 import 'package:billing_app/models/bank_account.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class AddNote extends StatelessWidget {
+class AddNoteView extends StatelessWidget {
   final controller = Get.put(ListViewController());
   final _formKey = GlobalKey<FormState>();
 

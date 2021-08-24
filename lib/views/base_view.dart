@@ -1,6 +1,6 @@
-import 'package:billing_app/constants.dart';
+import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/views/home_view.dart';
-import 'package:billing_app/views/home_views/turnover_list_view.dart';
+import 'package:billing_app/views/home_views/turnovers_list_view.dart';
 import 'package:billing_app/views/profile_view.dart';
 import 'package:billing_app/views/report_view.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,7 @@ class _BaseViewState extends State<BaseView> {
           child: Text('Turnovers'),
           onPressed: () {
             Navigator.pop(context);
-            Get.to(TurnoverListView());
+            Get.to(TurnoversListView());
           },
         ),
       ),
