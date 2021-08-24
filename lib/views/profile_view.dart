@@ -1,6 +1,7 @@
 import 'package:billing_app/constants.dart';
 import 'package:billing_app/views/home_views/accounts_list_view.dart';
 import 'package:billing_app/views/profile_views/about_us_view.dart';
+import 'package:billing_app/views/profile_views/my_notes_view.dart';
 import 'package:billing_app/views/profile_views/profile_data_view.dart';
 import 'package:billing_app/views/profile_views/settings_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,8 +25,10 @@ class ProfileView extends StatelessWidget {
               Get.to(Settings());
             } else if (choiceText == 'About Us') {
               Get.to(AboutUs());
-            } else {
+            } else if (choiceText == 'My Bank Accounts') {
               Get.to(AccountsList());
+            } else {
+              Get.to(MyNotes());
             }
           },
           child: Align(
@@ -56,6 +59,7 @@ class ProfileView extends StatelessWidget {
           choiceBlock('Settings'),
           choiceBlock('My Bank Accounts'),
           choiceBlock('About Us'),
+          choiceBlock('My Notes'),
         ],
       ),
     );
