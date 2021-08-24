@@ -61,10 +61,6 @@ class _BaseViewState extends State<BaseView> {
           Container(
             width: size.width,
             height: size.height,
-            child: Image.asset(
-              'assets/images/colori.jpg',
-              fit: BoxFit.fill,
-            ),
           ),
           showScreen(),
         ],

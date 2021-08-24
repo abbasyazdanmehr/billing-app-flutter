@@ -1,5 +1,8 @@
+import 'package:billing_app/views/profile_views/settings_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import 'package:sizer/sizer.dart';
 
 class Constants {
   static const Color themeColor = Colors.green;
@@ -12,7 +15,13 @@ class Constants {
     return AppBar(
       title: Text('Billing'),
       centerTitle: true,
-      actions: [IconButton(onPressed: () {}, icon: Icon(Icons.settings))],
+      actions: [
+        IconButton(
+            onPressed: () {
+              Get.to(SettingsView());
+            },
+            icon: Icon(Icons.settings))
+      ],
     );
   }
 
@@ -33,7 +42,8 @@ class Constants {
       {BuildContext context, heightRatio, widthRatio, Widget content}) {
     final Size size = MediaQuery.of(context).size;
     return Padding(
-      padding: EdgeInsets.all(0.01 * size.width),
+      padding: EdgeInsets.symmetric(
+          vertical: 0.005 * size.height, horizontal: 0.005 * size.width),
       child: Container(
         width: size.width * widthRatio,
         height: size.height * heightRatio,
@@ -64,10 +74,7 @@ class Constants {
               Color((0xFFFFFFFF)).withOpacity(0.1),
             ],
           ),
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: content,
-          ),
+          child: content,
         ),
       ),
     );

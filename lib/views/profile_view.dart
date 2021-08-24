@@ -22,7 +22,7 @@ class ProfileView extends StatelessWidget {
             if (choiceText == 'Profile Data') {
               Get.to(PersonalDataView());
             } else if (choiceText == 'Settings') {
-              Get.to(Settings());
+              Get.to(SettingsView());
             } else if (choiceText == 'About Us') {
               Get.to(AboutUsView());
             } else if (choiceText == 'My Bank Accounts') {

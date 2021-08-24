@@ -3,7 +3,9 @@ import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/controllers/small_object_controller.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_views/accounts_list_view.dart';
+import 'package:billing_app/views/home_views/add_account_view.dart';
 import 'package:billing_app/views/home_views/add_bill_view.dart';
+import 'package:billing_app/views/home_views/add_turnover_view.dart';
 import 'package:billing_app/views/home_views/bills_list_view.dart';
 import 'package:billing_app/views/home_views/turnovers_list_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,108 +18,16 @@ class HomeView extends StatelessWidget {
   final smallController = Get.put(SmallObjectController());
   @override
   Widget build(BuildContext context) {
-    Widget accounts(context) {
-      return Constants.responsiveGlassBlock(
-        context: context,
-        widthRatio: 1,
-        heightRatio: 0.14,
-        content: TextButton(
-          onPressed: () {
-            Get.to(AccountsListView());
-          },
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Accounts',
-              style: TextStyle(
-                color: Constants.darkColor,
-                fontSize: 25.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    Widget incomes(context) {
-      return Constants.responsiveGlassBlock(
-        context: context,
-        widthRatio: 1,
-        heightRatio: 0.14,
-        content: TextButton(
-          onPressed: () {
-            smallController.setTurnOver(TurnoverType.Income);
-            Get.to(TurnoversListView());
-          },
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Incomes',
-              style: TextStyle(
-                color: Constants.darkColor,
-                fontSize: 25.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    Widget costs(context) {
-      return Constants.responsiveGlassBlock(
-        context: context,
-        widthRatio: 1,
-        heightRatio: 0.14,
-        content: TextButton(
-          onPressed: () {
-            smallController.setTurnOver(TurnoverType.Cost);
-            Get.to(TurnoversListView());
-          },
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Costs',
-              style: TextStyle(
-                color: Constants.darkColor,
-                fontSize: 25.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    Widget addBill() {
-      return Constants.responsiveGlassBlock(
-        context: context,
-        widthRatio: 0.2,
-        heightRatio: 0.1,
-        content: Center(
-          child: IconButton(
-            onPressed: () {
-              Get.to(AddBillView());
-            },
-            icon: Icon(Icons.add),
-          ),
-        ),
-      );
-    }
-
-    Widget listBills() {
-      return TextButton(
-        onPressed: () {
-          Get.to(BillsListView());
-        },
+    Widget listBlock(String choiceText) {
+      return Padding(
+        padding: const EdgeInsets.all(5),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Bills',
+            choiceText,
             style: TextStyle(
               color: Constants.darkColor,
-              fontSize: 25.sp,
+              fontSize: 20.sp,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -125,56 +35,78 @@ class HomeView extends StatelessWidget {
       );
     }
 
-    Widget bills(context) {
-      return Constants.responsiveGlassBlock(
-        context: context,
-        widthRatio: 1,
-        heightRatio: 0.14,
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            listBills(),
-            addBill(),
-          ],
-        ),
-      );
-    }
-
-    Widget futureCosts(context) {
-      return Constants.responsiveGlassBlock(
-        context: context,
-        widthRatio: 1,
-        heightRatio: 0.14,
-        content: TextButton(
-          onPressed: () {
+    Widget addBlock(choiceText) {
+      return TextButton(
+        onPressed: () {
+          if (choiceText == 'Accounts') {
+            Get.to(AddAccountView());
+          } else if (choiceText == 'Bills') {
+            Get.to(AddBillView());
+          } else if (choiceText == 'Incomes') {
+            smallController.setTurnOver(TurnoverType.Income);
+            Get.to(AddTurnoverView());
+          } else if (choiceText == 'Costs') {
+            smallController.setTurnOver(TurnoverType.Cost);
+            Get.to(AddTurnoverView());
+          } else {
+            // Future Costs
             smallController.setTurnOver(TurnoverType.FutureCost);
-            Get.to(TurnoversListView());
-          },
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Future Costs',
-              style: TextStyle(
-                color: Constants.darkColor,
-                fontSize: 25.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Get.to(AddTurnoverView());
+          }
+        },
+        child: Constants.responsiveGlassBlock(
+          context: context,
+          widthRatio: 0.2,
+          heightRatio: 0.1,
+          content: Center(
+            child: Icon(Icons.add),
           ),
         ),
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          accounts(context),
-          bills(context),
-          incomes(context),
-          costs(context),
-          futureCosts(context),
-        ],
+    choiceBlock(choiceText) {
+      return Constants.responsiveGlassBlock(
+        context: context,
+        widthRatio: 1,
+        heightRatio: 0.13,
+        content: TextButton(
+            onPressed: () {
+              if (choiceText == 'Accounts') {
+                Get.to(AccountsListView());
+              } else if (choiceText == 'Bills') {
+                Get.to(BillsListView());
+              } else if (choiceText == 'Incomes') {
+                smallController.setTurnOver(TurnoverType.Income);
+                Get.to(TurnoversListView());
+              } else if (choiceText == 'Costs') {
+                smallController.setTurnOver(TurnoverType.Cost);
+                Get.to(TurnoversListView());
+              } else {
+                // Future Costs
+                smallController.setTurnOver(TurnoverType.FutureCost);
+                Get.to(TurnoversListView());
+              }
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [listBlock(choiceText), addBlock(choiceText)],
+            )),
+      );
+    }
+
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            choiceBlock('Accounts'),
+            choiceBlock('Bills'),
+            choiceBlock('Incomes'),
+            choiceBlock('Costs'),
+            choiceBlock('Future Costs'),
+          ],
+        ),
       ),
     );
   }

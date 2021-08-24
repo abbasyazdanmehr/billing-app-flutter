@@ -17,54 +17,61 @@ class AddAccountView extends StatelessWidget {
       key: _formKey,
       child: Stack(
         children: [
-          Column(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'Account Name',
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: Column(
+              children: [
+                Text(
+                  'Add Account!',
+                  style: TextStyle(fontSize: 35.sp),
                 ),
-                validator: (String value) {
-                  if (value.isEmpty) {
-                    return 'this username is invalid';
-                  } else {
-                    return null;
-                  }
-                },
-                onSaved: (String value) => _inputName = value,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.money),
-                  hintText: 'First Balance',
+                TextFormField(
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.person),
+                    hintText: 'Account Name',
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'this username is invalid';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onSaved: (String value) => _inputName = value,
                 ),
-                validator: (String value) {
-                  if (value.isEmpty || !Constants.isInteger(value)) {
-                    return 'this balance is invalid';
-                  } else {
-                    return null;
-                  }
-                },
-                onSaved: (String value) => _inputBalance = int.parse(value),
-              ),
-              Obx(
-                () {
-                  return Text(
-                    controller.bankAccounts.length.toString(),
-                  );
-                },
-              ),
-            ],
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.money),
+                    hintText: 'First Balance',
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty || !Constants.isInteger(value)) {
+                      return 'this balance is invalid';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onSaved: (String value) => _inputBalance = int.parse(value),
+                ),
+                Obx(
+                  () {
+                    return Text(
+                      controller.bankAccounts.length.toString(),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
           Positioned(
-            bottom: 0,
-            right: 0,
+            bottom: 1.h,
+            right: 2.w,
             child: Container(
-              height: 10.h,
-              width: 92.w,
+              height: 7.h,
+              width: 86.w,
               child: ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
@@ -76,7 +83,7 @@ class AddAccountView extends StatelessWidget {
                     Navigator.pop(context);
                   }
                 },
-                child: Text('Add Account'),
+                child: Text('Add'),
               ),
             ),
           ),
@@ -92,8 +99,8 @@ class AddAccountView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Constants.responsiveGlassBlock(
             context: context,
-            heightRatio: 0.5,
-            widthRatio: 1,
+            heightRatio: 0.7,
+            widthRatio: 0.9,
             content: formFields(context),
           ),
         ),

@@ -17,58 +17,61 @@ class AddBillView extends StatelessWidget {
       key: _formKey,
       child: Stack(
         children: [
-          Column(
-            children: [
-              Text(
-                'Add Bill!',
-                style: TextStyle(fontSize: 40.sp),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.money),
-                  hintText: 'Bill Mount',
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            child: Column(
+              children: [
+                Text(
+                  'Add Bill!',
+                  style: TextStyle(fontSize: 40.sp),
                 ),
-                validator: (String value) {
-                  if (value.isEmpty || !Constants.isInteger(value)) {
-                    return 'this mount is invalid';
-                  } else {
-                    return null;
-                  }
-                },
-                onSaved: (String value) => _inputMount = int.parse(value),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.person),
-                  hintText: 'Creditor Name',
+                TextFormField(
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.money),
+                    hintText: 'Bill Mount',
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty || !Constants.isInteger(value)) {
+                      return 'this mount is invalid';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onSaved: (String value) => _inputMount = int.parse(value),
                 ),
-                validator: (String value) {
-                  if (value.isEmpty) {
-                    return 'this username is invalid';
-                  } else {
-                    return null;
-                  }
-                },
-                onSaved: (String value) => _inputCreditorName = value,
-              ),
-              Obx(
-                () {
-                  return Text(
-                    controller.bills.length.toString(),
-                  );
-                },
-              ),
-            ],
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.person),
+                    hintText: 'Creditor Name',
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'this username is invalid';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onSaved: (String value) => _inputCreditorName = value,
+                ),
+                Obx(
+                  () {
+                    return Text(
+                      controller.bills.length.toString(),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
           Positioned(
-            bottom: 0,
-            right: 0,
+            bottom: 1.h,
+            right: 2.w,
             child: Container(
-              height: 10.h,
-              width: 84.w,
+              height: 7.h,
+              width: 86.w,
               child: ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
@@ -79,7 +82,10 @@ class AddBillView extends StatelessWidget {
                     Navigator.pop(context);
                   }
                 },
-                child: Text('Add Bill'),
+                child: Text(
+                  'Add',
+                  style: TextStyle(fontSize: 18.sp),
+                ),
               ),
             ),
           ),
@@ -91,15 +97,13 @@ class AddBillView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Constants.responsiveGlassBlock(
-              context: context,
-              heightRatio: 0.8,
-              widthRatio: 0.9,
-              content: formFields(context),
-            ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Constants.responsiveGlassBlock(
+            context: context,
+            heightRatio: 0.7,
+            widthRatio: 0.9,
+            content: formFields(context),
           ),
         ),
       ),
