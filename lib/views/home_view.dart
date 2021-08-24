@@ -68,18 +68,18 @@ class HomeView extends StatelessWidget {
     choiceBlock(choiceText) {
       return Constants.responsiveGlassBlock(
         context: context,
-        widthRatio: 1,
+        widthRatio: 0.8,
         heightRatio: 0.13,
         content: TextButton(
             onPressed: () {
-              if (choiceText == 'Accounts') {
+              if (choiceText.contains('Accounts')) {
                 Get.to(AccountsListView());
-              } else if (choiceText == 'Bills') {
+              } else if (choiceText.contains('Bills')) {
                 Get.to(BillsListView());
-              } else if (choiceText == 'Incomes') {
+              } else if (choiceText.contains('Incomes')) {
                 smallController.setTurnOver(TurnoverType.Income);
                 Get.to(TurnoversListView());
-              } else if (choiceText == 'Costs') {
+              } else if (choiceText.contains('Costs')) {
                 smallController.setTurnOver(TurnoverType.Cost);
                 Get.to(TurnoversListView());
               } else {
@@ -95,17 +95,28 @@ class HomeView extends StatelessWidget {
       );
     }
 
+    blocks() {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            choiceBlock('🏛️ Accounts'),
+            choiceBlock('🧾 Bills'),
+            choiceBlock('💵 Incomes'),
+            choiceBlock('💰 Costs'),
+            choiceBlock('📈 Future Cost'),
+          ],
+        ),
+      );
+    }
+
     return Center(
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            choiceBlock('Accounts'),
-            choiceBlock('Bills'),
-            choiceBlock('Incomes'),
-            choiceBlock('Costs'),
-            choiceBlock('Future Costs'),
-          ],
+        child: Constants.responsiveGlassBlock(
+          context: context,
+          heightRatio: 0.73,
+          widthRatio: 0.9,
+          content: blocks(),
         ),
       ),
     );

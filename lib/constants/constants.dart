@@ -5,11 +5,11 @@ import 'package:glassmorphism/glassmorphism.dart';
 import 'package:sizer/sizer.dart';
 
 class Constants {
-  static const Color themeColor = Colors.green;
-  static const Color detailColor = Colors.deepPurple;
-  static const Color hideColor = Colors.teal;
+  static const Color themeColor = Colors.yellow;
+  static const Color textColor = Colors.black;
+  static const Color backgroundsColor = Colors.deepPurple;
   static const Color darkColor = Colors.black;
-  static const Color lightColor = Colors.amber;
+  static const Color lightColor = Colors.grey;
 
   static Widget customAppBar() {
     return AppBar(
@@ -59,18 +59,18 @@ class Constants {
               end: Alignment.bottomRight,
               colors: [
                 Color(0xFFffffff).withOpacity(0.8),
-                Color(0xFFFFFFFF)
+                Color(0xfff1c40f)
                     .withOpacity(0.01), // low: glass   high: plastic
               ],
               stops: [
-                0.3,
-                0.8, // low: glass   high: plastic
+                0.05,
+                0.6, // low: glass   high: plastic
               ]),
           borderGradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
             colors: [
-              Color(0xFFffffff).withOpacity(0.3),
+              Color(0xFFffffff).withOpacity(0.9),
               Color((0xFFFFFFFF)).withOpacity(0.1),
             ],
           ),

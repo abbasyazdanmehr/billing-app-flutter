@@ -15,30 +15,33 @@ class ProfileView extends StatelessWidget {
     Widget choiceBlock(String choiceText) {
       return Constants.responsiveGlassBlock(
         context: context,
-        widthRatio: 1,
-        heightRatio: 0.12,
+        widthRatio: 0.8,
+        heightRatio: 0.13,
         content: TextButton(
           onPressed: () {
-            if (choiceText == 'Profile Data') {
+            if (choiceText == 'Edit Profile') {
               Get.to(PersonalDataView());
             } else if (choiceText == 'Settings') {
               Get.to(SettingsView());
             } else if (choiceText == 'About Us') {
               Get.to(AboutUsView());
-            } else if (choiceText == 'My Bank Accounts') {
+            } else if (choiceText == 'Bank Accounts') {
               Get.to(AccountsListView());
             } else {
               Get.to(NotesListView());
             }
           },
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              choiceText,
-              style: TextStyle(
-                color: Constants.darkColor,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.bold,
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                choiceText,
+                style: TextStyle(
+                  color: Constants.darkColor,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -46,21 +49,33 @@ class ProfileView extends StatelessWidget {
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.account_circle,
-            color: Colors.black,
-            size: 120.sp,
-          ),
-          choiceBlock('Profile Data'),
-          choiceBlock('Settings'),
-          choiceBlock('My Bank Accounts'),
-          choiceBlock('About Us'),
-          choiceBlock('My Notes'),
-        ],
+    blocks() {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            choiceBlock('Edit Profile'),
+            choiceBlock('Settings'),
+            choiceBlock('Bank Accounts'),
+            choiceBlock('About Us'),
+            choiceBlock('My Notes'),
+          ],
+        ),
+      );
+    }
+
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Constants.responsiveGlassBlock(
+              context: context,
+              heightRatio: 0.73,
+              widthRatio: 0.9,
+              content: blocks(),
+            ),
+          ],
+        ),
       ),
     );
   }

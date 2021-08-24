@@ -47,12 +47,14 @@ class _BaseViewState extends State<BaseView> {
     print(size.height.toString() + 'px');
     return Scaffold(
       drawer: Drawer(
-        child: ElevatedButton(
-          child: Text('Turnovers'),
-          onPressed: () {
-            Navigator.pop(context);
-            Get.to(TurnoversListView());
-          },
+        child: Center(
+          child: ElevatedButton(
+            child: Text('All Turnovers'),
+            onPressed: () {
+              Navigator.pop(context);
+              Get.to(TurnoversListView());
+            },
+          ),
         ),
       ),
       appBar: Constants.customAppBar(),
@@ -66,10 +68,11 @@ class _BaseViewState extends State<BaseView> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 5,
         type: BottomNavigationBarType.shifting,
         backgroundColor: Constants.themeColor,
-        selectedItemColor: Constants.detailColor,
-        unselectedItemColor: Constants.darkColor,
+        selectedItemColor: Constants.textColor,
+        unselectedItemColor: Constants.lightColor,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -79,12 +82,12 @@ class _BaseViewState extends State<BaseView> {
           BottomNavigationBarItem(
             icon: Icon(Icons.note),
             label: 'Report',
-            backgroundColor: Constants.hideColor,
+            backgroundColor: Constants.themeColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',
-            backgroundColor: Constants.lightColor,
+            backgroundColor: Constants.themeColor,
           ),
         ],
         currentIndex: _selectedIndex,

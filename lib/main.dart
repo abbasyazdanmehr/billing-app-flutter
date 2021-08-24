@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final newTextTheme = Theme.of(context).textTheme.apply(
-          bodyColor: Constants.detailColor,
-          displayColor: Constants.detailColor,
+          bodyColor: Constants.textColor,
+          displayColor: Constants.textColor,
           fontFamily: 'dubay',
         );
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Constants.themeColor,
           fontFamily: 'dubay',
-          scaffoldBackgroundColor: Constants.hideColor,
+          scaffoldBackgroundColor: Constants.backgroundsColor,
           textTheme: newTextTheme,
         ),
         home: BaseView(0),
