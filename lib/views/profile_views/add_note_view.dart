@@ -1,7 +1,6 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
-import 'package:billing_app/controllers/notes_database.dart';
-import 'package:billing_app/models/bank_account.dart';
+import 'package:billing_app/db/notes_database.dart';
 import 'package:billing_app/models/note.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
