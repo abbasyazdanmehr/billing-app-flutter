@@ -1,16 +1,16 @@
-import 'package:billing_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 
 class Bill {
   int id;
   int mount;
   String description;
+  String creditorName;
   DateTime deadLine;
-  User creditor;
+
   Bill(
       {@required this.mount,
+      @required this.creditorName,
       this.description,
       this.deadLine,
-      this.creditor,
       this.id});
 }

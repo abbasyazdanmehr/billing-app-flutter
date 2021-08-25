@@ -78,7 +78,8 @@ class AddBillView extends StatelessWidget {
                     print(_inputCreditorName);
                     _formKey.currentState.save();
                     print(_inputCreditorName);
-                    controller.addBill(Bill(mount: _inputMount));
+                    controller.addBill(Bill(
+                        mount: _inputMount, creditorName: _inputCreditorName));
                     Navigator.pop(context);
                   }
                 },

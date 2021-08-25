@@ -11,6 +11,48 @@ class TurnoversListView extends StatelessWidget {
   final smallController = Get.put(SmallObjectController());
   @override
   Widget build(BuildContext context) {
+    Widget turnoverContent(index) {
+      return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Align(
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                controller.turnovers[index].mount.toString() + ' \$',
+                style: TextStyle(
+                  fontSize: 22.sp,
+                ),
+              ),
+              controller.turnovers[index].bankAccount != null
+                  ? Text(
+                      controller.turnovers[index]
+                          .bankAccount, // TODO: changing to time
+                      style: TextStyle(
+                          fontSize: 22.sp, color: Constants.themeColor),
+                    )
+                  : TextButton(
+                      onPressed: () {},
+                      child: Container(
+                        color: Constants.textColor,
+                        child: Text('Choose Account!'),
+                      ),
+                    )
+            ],
+          ),
+        ),
+      );
+    }
+
+    block(index) {
+      return Constants.responsiveGlassBlock(
+          context: context,
+          heightRatio: 0.1,
+          widthRatio: 0.95,
+          content: turnoverContent(index));
+    }
+
     return Scaffold(
       appBar: Constants.customAppBar(),
       body: Container(
@@ -22,7 +64,7 @@ class TurnoversListView extends StatelessWidget {
               for (var i = 0; i < controller.turnovers.length; i++)
                 if (smallController.turnoverType[0] ==
                     controller.turnovers[i].turnoverType)
-                  Text(controller.turnovers[i].mount.toString()),
+                  block(i),
               Text(
                 controller.turnovers.length.toString(),
               ),

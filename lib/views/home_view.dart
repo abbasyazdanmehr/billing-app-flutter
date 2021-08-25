@@ -56,7 +56,7 @@ class HomeView extends StatelessWidget {
         },
         child: Constants.responsiveGlassBlock(
           context: context,
-          widthRatio: 0.2,
+          widthRatio: 0.15,
           heightRatio: 0.1,
           content: Center(
             child: Icon(Icons.add),
@@ -102,8 +102,8 @@ class HomeView extends StatelessWidget {
           children: [
             choiceBlock('🏛️ Accounts'),
             choiceBlock('🧾 Bills'),
-            choiceBlock('💵 Incomes'),
-            choiceBlock('💰 Costs'),
+            choiceBlock('💰 Incomes'),
+            choiceBlock('💵 Costs'),
             choiceBlock('📈 Future Cost'),
           ],
         ),
