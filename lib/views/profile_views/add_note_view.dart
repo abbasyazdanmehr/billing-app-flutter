@@ -12,7 +12,7 @@ class AddNoteView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   Future createNote(Note note) async {
-    await NoteDatabase.instance.create(note);
+    await NoteDatabase.instance.createNote(note);
   }
 
   Widget formFields(BuildContext context) {
