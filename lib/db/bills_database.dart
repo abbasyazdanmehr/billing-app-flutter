@@ -1,13 +1,13 @@
-import 'package:billing_app/models/note.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path/path.dart' show join;
 import 'dart:async';
+import 'package:billing_app/models/bill.dart';
 
-class NotesDatabase {
-  static final NotesDatabase instance = NotesDatabase._init();
+class BillsDatabase {
+  static final BillsDatabase instance = BillsDatabase._init();
 
-  NotesDatabase._init();
+  BillsDatabase._init();
 
   static Database _database;
 
@@ -15,7 +15,7 @@ class NotesDatabase {
     if (_database != null) {
       return _database;
     }
-    _database = await _initDB('note.db');
+    _database = await _initDB('bills.db');
     return _database;
   }
 
@@ -32,55 +32,56 @@ class NotesDatabase {
     final textType = 'TEXT NOT NULL';
 
     await db.execute('''
-    CREATE TABLE $tableNote (
-      ${NoteFields.id} $idType,
-      ${NoteFields.number} $intType,
-      ${NoteFields.title} $textType,
-      ${NoteFields.description} $textType,
-      ${NoteFields.isImportant} $boolType
+    CREATE TABLE $tableBills (
+      ${BillFields.id} $idType,
+      ${BillFields.mount} $intType,
+      ${BillFields.description} $textType,
+      ${BillFields.creditorName} $textType,
+      ${BillFields.deadLine} $textType
     )
     ''');
   }
 
-  Future<Note> createNote(Note note) async {
+  Future<Bill> createBill(Bill bill) async {
     final db = await instance.database;
 
-    final id = await db.insert(tableNote, note.toJson());
-    return note.copy(id: id);
+    final id = await db.insert(tableBills, bill.toJson());
+    return bill.copy(id: id);
   }
 
-  Future<Note> readNote(int id) async {
+  Future<Bill> readBill(int id) async {
     final db = await instance.database;
-    final noteMap = await db.query(
-      tableNote,
-      columns: NoteFields.values,
-      where: '${NoteFields.id} = ?',
+    final billMap = await db.query(
+      tableBills,
+      columns: BillFields.values,
+      where: '${BillFields.id} = ?',
       whereArgs: [id],
     );
-    if (noteMap.isNotEmpty) {
-      return Note.fromJson(noteMap.first);
+    if (billMap.isNotEmpty) {
+      return Bill.fromJson(billMap.first);
     } else {
       throw Exception('Id $id not found');
     }
   }
 
-  Future<List<Note>> readAllNotes() async {
+  Future<List<Bill>> readAllBills() async {
     final db = await instance.database;
-    final result = await db.query(tableNote);
-    return result.map((json) => Note.fromJson(json)).toList();
+    final result = await db.query(tableBills);
+    return result.map((json) => Bill.fromJson(json)).toList();
   }
 
-  Future<int> updateNote(Note note) async {
+  Future<int> updateBill(Bill bill) async {
     final db = await instance.database;
 
-    return db.update(tableNote, note.toJson(),
-        where: '${NoteFields.id} = ?', whereArgs: [note.id]);
+    return db.update(tableBills, bill.toJson(),
+        where: '${BillFields.id} = ?', whereArgs: [bill.id]);
   }
 
   Future<int> deleteNote(int id) async {
     final db = await instance.database;
 
-    return db.delete(tableNote, where: '${NoteFields.id} = ?', whereArgs: [id]);
+    return db
+        .delete(tableBills, where: '${BillFields.id} = ?', whereArgs: [id]);
   }
 
   Future close() async {

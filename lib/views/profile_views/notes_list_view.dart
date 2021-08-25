@@ -16,7 +16,7 @@ class _NotesListViewState extends State<NotesListView> {
 
   Future refreshNote() async {
     setState(() {});
-    this.notes = await NoteDatabase.instance.readAllNotes();
+    this.notes = await NotesDatabase.instance.readAllNotes();
   }
 
   @override

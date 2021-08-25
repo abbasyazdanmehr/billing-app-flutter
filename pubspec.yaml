@@ -35,6 +35,7 @@ dependencies:
   shared_preferences: ^2.0.7
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
+  datetime_picker_formfield: ^2.0.0
 
 dev_dependencies:
   flutter_test:

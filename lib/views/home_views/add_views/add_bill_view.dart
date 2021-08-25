@@ -1,18 +1,28 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
+import 'package:billing_app/db/bills_database.dart';
 import 'package:billing_app/models/bill.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:intl/intl.dart';
 
 class AddBillView extends StatelessWidget {
   final controller = Get.put(ListViewController());
   final _formKey = GlobalKey<FormState>();
 
+  Future create(Bill bill) async {
+    await BillsDatabase.instance.createBill(bill);
+  }
+
   Widget formFields(BuildContext context) {
     String _inputCreditorName;
+    String _inputDescription;
+    DateTime _inputDeadLine;
     int _inputMount;
+    final format = DateFormat("yyyy-MM-dd");
     return Form(
       key: _formKey,
       child: Stack(
@@ -49,12 +59,40 @@ class AddBillView extends StatelessWidget {
                   ),
                   validator: (String value) {
                     if (value.isEmpty) {
-                      return 'this username is invalid';
+                      return 'this name is invalid';
                     } else {
                       return null;
                     }
                   },
                   onSaved: (String value) => _inputCreditorName = value,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.description),
+                    hintText: 'Description',
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'this description is invalid';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onSaved: (String value) => _inputDescription = value,
+                ),
+                DateTimeField(
+                  format: format,
+                  onShowPicker: (context, currentValue) async {
+                    final deadLine = await showDatePicker(
+                      context: context,
+                      firstDate: DateTime(1900),
+                      initialDate: currentValue ?? DateTime.now(),
+                      lastDate: DateTime(2100),
+                    );
+                    await Future.delayed(Duration(seconds: 2));
+                    _inputDeadLine = deadLine;
+                    return deadLine;
+                  },
                 ),
                 Obx(
                   () {
@@ -75,11 +113,15 @@ class AddBillView extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    print(_inputCreditorName);
                     _formKey.currentState.save();
-                    print(_inputCreditorName);
-                    controller.addBill(Bill(
-                        mount: _inputMount, creditorName: _inputCreditorName));
+                    create(Bill(
+                      mount: _inputMount,
+                      creditorName: _inputCreditorName,
+                      description: _inputDescription,
+                      deadLine: _inputDeadLine,
+                    ));
+                    // controller.addBill(Bill(
+                    //     mount: _inputMount, creditorName: _inputCreditorName));
                     Navigator.pop(context);
                   }
                 },
@@ -102,7 +144,7 @@ class AddBillView extends StatelessWidget {
         child: SingleChildScrollView(
           child: Constants.responsiveGlassBlock(
             context: context,
-            heightRatio: 0.7,
+            heightRatio: 0.8,
             widthRatio: 0.9,
             content: formFields(context),
           ),

@@ -1,14 +1,27 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
+import 'package:billing_app/db/bills_database.dart';
+import 'package:billing_app/models/bill.dart';
 import 'package:billing_app/views/home_views/add_views/add_bill_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class BillsListView extends StatelessWidget {
+class BillsListView extends StatefulWidget {
+  @override
+  _BillsListViewState createState() => _BillsListViewState();
+}
+
+class _BillsListViewState extends State<BillsListView> {
   final controller = Get.put(ListViewController());
+  List<Bill> bills = [];
   @override
   Widget build(BuildContext context) {
+    refreshBills() async {
+      setState(() {});
+      bills = await BillsDatabase.instance.readAllBills();
+    }
+
     Widget billContent(index) {
       return Padding(
         padding: const EdgeInsets.all(10),
@@ -18,13 +31,13 @@ class BillsListView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                controller.bills[index].mount.toString() + ' \$',
+                bills[index].mount.toString() + ' \$',
                 style: TextStyle(
                   fontSize: 22.sp,
                 ),
               ),
               Text(
-                controller.bills[index].creditorName, // TODO: changing to time
+                bills[index].creditorName, // TODO: changing to time
                 style: TextStyle(fontSize: 22.sp, color: Constants.themeColor),
               ),
             ],
@@ -43,18 +56,15 @@ class BillsListView extends StatelessWidget {
 
     return Scaffold(
       appBar: Constants.customAppBar(),
-      body: SingleChildScrollView(
-        child: Obx(
-          () {
-            return Center(
-              child: Column(
-                children: [
-                  for (var i = 0; i < controller.bills.length; i++) block(i),
-                  Text(controller.bills.length.toString())
-                ],
-              ),
-            );
-          },
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await refreshBills();
+        },
+        child: ListView(
+          children: [
+            for (var i = 0; i < bills.length; i++) block(i),
+            Text(bills.length.toString())
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
