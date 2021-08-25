@@ -1,10 +1,12 @@
 import 'package:billing_app/constants/constants.dart';
+import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_view.dart';
 import 'package:billing_app/views/home_views/turnovers_list_view.dart';
 import 'package:billing_app/views/profile_view.dart';
 import 'package:billing_app/views/report_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class BaseView extends StatefulWidget {
   final int index;
@@ -16,6 +18,7 @@ class BaseView extends StatefulWidget {
 
 class _BaseViewState extends State<BaseView> {
   int _selectedIndex = 0;
+  final box = GetStorage();
 
   @override
   initState() {
@@ -40,6 +43,19 @@ class _BaseViewState extends State<BaseView> {
     });
   }
 
+  Widget drawerContent() {
+    return Center(
+      child: ElevatedButton(
+        child: Text('All Turnovers'),
+        onPressed: () {
+          Navigator.pop(context);
+          box.write('turnoverType', TurnoverType.All);
+          Get.to(TurnoversListView());
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -47,15 +63,7 @@ class _BaseViewState extends State<BaseView> {
     print(size.height.toString() + 'px');
     return Scaffold(
       drawer: Drawer(
-        child: Center(
-          child: ElevatedButton(
-            child: Text('All Turnovers'),
-            onPressed: () {
-              Navigator.pop(context);
-              Get.to(TurnoversListView());
-            },
-          ),
-        ),
+        child: drawerContent(),
       ),
       appBar: Constants.customAppBar(),
       body: Stack(
