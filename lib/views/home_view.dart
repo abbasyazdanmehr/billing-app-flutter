@@ -1,6 +1,5 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
-import 'package:billing_app/controllers/small_object_controller.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_views/accounts_list_view.dart';
 import 'package:billing_app/views/home_views/add_account_view.dart';
@@ -11,11 +10,12 @@ import 'package:billing_app/views/home_views/turnovers_list_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeView extends StatelessWidget {
   final ListViewController accountsController = Get.put(ListViewController());
-  final smallController = Get.put(SmallObjectController());
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     Widget listBlock(String choiceText) {
@@ -43,14 +43,14 @@ class HomeView extends StatelessWidget {
           } else if (choiceText == 'Bills') {
             Get.to(AddBillView());
           } else if (choiceText == 'Incomes') {
-            smallController.setTurnOver(TurnoverType.Income);
+            box.write('turnoverType', TurnoverType.Income);
             Get.to(AddTurnoverView());
           } else if (choiceText == 'Costs') {
-            smallController.setTurnOver(TurnoverType.Cost);
+            box.write('turnoverType', TurnoverType.Cost);
             Get.to(AddTurnoverView());
           } else {
             // Future Costs
-            smallController.setTurnOver(TurnoverType.FutureCost);
+            box.write('turnoverType', TurnoverType.FutureCost);
             Get.to(AddTurnoverView());
           }
         },
@@ -77,14 +77,14 @@ class HomeView extends StatelessWidget {
               } else if (choiceText.contains('Bills')) {
                 Get.to(BillsListView());
               } else if (choiceText.contains('Incomes')) {
-                smallController.setTurnOver(TurnoverType.Income);
+                box.write('turnoverType', TurnoverType.Income);
                 Get.to(TurnoversListView());
               } else if (choiceText.contains('Costs')) {
-                smallController.setTurnOver(TurnoverType.Cost);
+                box.write('turnoverType', TurnoverType.Cost);
                 Get.to(TurnoversListView());
               } else {
                 // Future Costs
-                smallController.setTurnOver(TurnoverType.FutureCost);
+                box.write('turnoverType', TurnoverType.FutureCost);
                 Get.to(TurnoversListView());
               }
             },

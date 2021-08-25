@@ -1,17 +1,17 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
-import 'package:billing_app/controllers/small_object_controller.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/models/turnover.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
 class AddTurnoverView extends StatelessWidget {
   final controller = Get.put(ListViewController());
   final _formKey = GlobalKey<FormState>();
-  final smallController = Get.put(SmallObjectController());
+  final box = GetStorage();
 
   Widget formFields(BuildContext context) {
     int _inputMount;
@@ -24,17 +24,17 @@ class AddTurnoverView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: Column(
               children: [
-                if (smallController.turnoverType[0] == TurnoverType.Income)
+                if (box.read('turnoverType') == TurnoverType.Income)
                   Text(
                     'Add Income!',
                     style: TextStyle(fontSize: 35.sp),
                   ),
-                if (smallController.turnoverType[0] == TurnoverType.Cost)
+                if (box.read('turnoverType') == TurnoverType.Cost)
                   Text(
                     'Add Cost!',
                     style: TextStyle(fontSize: 35.sp),
                   ),
-                if (smallController.turnoverType[0] == TurnoverType.FutureCost)
+                if (box.read('turnoverType') == TurnoverType.FutureCost)
                   Text(
                     'Add Future Cost!',
                     style: TextStyle(fontSize: 20.sp),
@@ -95,7 +95,7 @@ class AddTurnoverView extends StatelessWidget {
                     controller.addTurnover(
                       Turnover(
                         mount: _inputMount,
-                        turnoverType: smallController.turnoverType[0],
+                        turnoverType: box.read('turnoverType'),
                       ),
                     );
                     Navigator.pop(context);

@@ -1,14 +1,14 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
-import 'package:billing_app/controllers/small_object_controller.dart';
 import 'package:billing_app/views/home_views/add_turnover_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
 class TurnoversListView extends StatelessWidget {
   final controller = Get.put(ListViewController());
-  final smallController = Get.put(SmallObjectController());
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     Widget turnoverContent(index) {
@@ -62,7 +62,7 @@ class TurnoversListView extends StatelessWidget {
           () => Column(
             children: [
               for (var i = 0; i < controller.turnovers.length; i++)
-                if (smallController.turnoverType[0] ==
+                if (box.read('turnoverType') ==
                     controller.turnovers[i].turnoverType)
                   block(i),
               Text(
