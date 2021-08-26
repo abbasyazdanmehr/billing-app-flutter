@@ -15,6 +15,15 @@ class BillsListView extends StatefulWidget {
 class _BillsListViewState extends State<BillsListView> {
   final controller = Get.put(ListViewController());
   List<Bill> bills = [];
+
+  String showDateTime(DateTime dateTime) {
+    return dateTime.year.toString() +
+        '/' +
+        dateTime.month.toString() +
+        '/' +
+        dateTime.day.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     refreshBills() async {
@@ -37,8 +46,8 @@ class _BillsListViewState extends State<BillsListView> {
                 ),
               ),
               Text(
-                bills[index].creditorName, // TODO: changing to time
-                style: TextStyle(fontSize: 22.sp, color: Constants.themeColor),
+                showDateTime(bills[index].deadLine),
+                style: TextStyle(fontSize: 15.sp, color: Constants.themeColor),
               ),
             ],
           ),

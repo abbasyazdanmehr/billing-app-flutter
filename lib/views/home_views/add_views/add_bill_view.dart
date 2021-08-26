@@ -120,8 +120,6 @@ class AddBillView extends StatelessWidget {
                       description: _inputDescription,
                       deadLine: _inputDeadLine,
                     ));
-                    // controller.addBill(Bill(
-                    //     mount: _inputMount, creditorName: _inputCreditorName));
                     Navigator.pop(context);
                   }
                 },
