@@ -25,13 +25,13 @@ class Turnover {
   int mount;
   int bankAccountId;
   DateTime time;
-  TurnoverType turnoverType = TurnoverType.All;
+  int turnoverType = TurnoverType.All.index;
   String description;
   Turnover({
     this.id,
     @required this.mount,
-    this.bankAccountId,
-    this.time,
+    @required this.bankAccountId,
+    @required this.time,
     @required this.turnoverType,
     this.description,
   });
@@ -41,7 +41,7 @@ class Turnover {
     int mount,
     int bankAccountId,
     DateTime time,
-    TurnoverType turnoverType = TurnoverType.All,
+    int turnoverType,
     String description,
   }) {
     return Turnover(
@@ -71,7 +71,7 @@ class Turnover {
       mount: json[TurnoverFields.mount] as int,
       bankAccountId: json[TurnoverFields.bankAccountId] as int,
       time: DateTime.parse(json[TurnoverFields.time] as String),
-      turnoverType: json[TurnoverFields.turnoverType] as TurnoverType,
+      turnoverType: json[TurnoverFields.turnoverType] as int,
       description: json[TurnoverFields.description] as String,
     );
   }

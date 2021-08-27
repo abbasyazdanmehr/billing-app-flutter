@@ -1,5 +1,6 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
+import 'package:billing_app/db/turnovers_database.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_views/add_views/add_turnover_view.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,25 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
-class TurnoversListView extends StatelessWidget {
+class TurnoversListView extends StatefulWidget {
+  @override
+  _TurnoversListViewState createState() => _TurnoversListViewState();
+}
+
+class _TurnoversListViewState extends State<TurnoversListView> {
   final controller = Get.put(ListViewController());
+
   final box = GetStorage();
+
+  var turnovers = [];
+
   @override
   Widget build(BuildContext context) {
+    refreshTurnovers() async {
+      setState(() {});
+      turnovers = await TurnoversDatabase.instance.readAllTurnovers();
+    }
+
     Widget turnoverContent(index) {
       return Padding(
         padding: const EdgeInsets.all(10),
@@ -21,15 +36,14 @@ class TurnoversListView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                controller.turnovers[index].mount.toString() + ' \$',
+                turnovers[index].mount.toString() + ' \$',
                 style: TextStyle(
                   fontSize: 22.sp,
                 ),
               ),
-              controller.turnovers[index].bankAccount != null
+              turnovers[index].bankAccountId != null
                   ? Text(
-                      controller.turnovers[index]
-                          .bankAccount, // TODO: changing to time
+                      turnovers[index].bankAccountId.toString(),
                       style: TextStyle(
                           fontSize: 22.sp, color: Constants.themeColor),
                     )
@@ -39,7 +53,7 @@ class TurnoversListView extends StatelessWidget {
                         color: Constants.textColor,
                         child: Text('Choose Account!'),
                       ),
-                    )
+                    ),
             ],
           ),
         ),
@@ -56,22 +70,14 @@ class TurnoversListView extends StatelessWidget {
 
     return Scaffold(
       appBar: Constants.customAppBar(),
-      body: Container(
-        height: 100.h,
-        width: 100.w,
-        child: Obx(
-          () => Column(
-            children: [
-              for (var i = 0; i < controller.turnovers.length; i++)
-                if (box.read('turnoverType') ==
-                        controller.turnovers[i].turnoverType ||
-                    box.read('turnoverType') == TurnoverType.All)
-                  block(i),
-              Text(
-                controller.turnovers.length.toString(),
-              ),
-            ],
-          ),
+      body: RefreshIndicator(
+        onRefresh: refreshTurnovers,
+        child: ListView(
+          children: [
+            for (var i = 0; i < turnovers.length; i++)
+              if (box.read('turnoverIndex') == turnovers[i].turnoverType)
+                block(i),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

@@ -36,10 +36,11 @@ class TurnoversDatabase {
     CREATE TABLE $tableTurnovers (
       ${TurnoverFields.id} $idType,
       ${TurnoverFields.mount} $intType,
-      FOREIGN KEY(${TurnoverFields.bankAccountId}) REFERENCES $tableBankAccounts(${BankAccountsFields.id}),
+      ${TurnoverFields.bankAccountId} $intType,
       ${TurnoverFields.time} $textType,
-      ${TurnoverFields.turnoverType} $textType,
-      ${TurnoverFields.description} $textType
+      ${TurnoverFields.turnoverType} $intType,
+      ${TurnoverFields.description} $textType,
+      FOREIGN KEY(${TurnoverFields.bankAccountId}) REFERENCES $tableBankAccounts(${BankAccountsFields.id})
     )
     ''');
   }

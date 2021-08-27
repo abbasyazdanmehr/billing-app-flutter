@@ -1,5 +1,6 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
+import 'package:billing_app/db/turnovers_database.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/models/turnover.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,8 +14,13 @@ class AddTurnoverView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final box = GetStorage();
 
+  Future create(Turnover turnover) async {
+    await TurnoversDatabase.instance.createTurnover(turnover);
+  }
+
   Widget formFields(BuildContext context) {
     int _inputMount;
+    String _inputDescription;
 
     return Form(
       key: _formKey,
@@ -24,17 +30,17 @@ class AddTurnoverView extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: Column(
               children: [
-                if (box.read('turnoverType') == TurnoverType.Income)
+                if (box.read('turnoverIndex') == TurnoverType.Income.index)
                   Text(
                     'Add Income!',
                     style: TextStyle(fontSize: 35.sp),
                   ),
-                if (box.read('turnoverType') == TurnoverType.Cost)
+                if (box.read('turnoverIndex') == TurnoverType.Cost.index)
                   Text(
                     'Add Cost!',
                     style: TextStyle(fontSize: 35.sp),
                   ),
-                if (box.read('turnoverType') == TurnoverType.FutureCost)
+                if (box.read('turnoverIndex') == TurnoverType.FutureCost.index)
                   Text(
                     'Add Future Cost!',
                     style: TextStyle(fontSize: 20.sp),
@@ -68,6 +74,7 @@ class AddTurnoverView extends StatelessWidget {
                       return null;
                     }
                   },
+                  onSaved: (String value) => _inputDescription = value,
                 ),
                 SizedBox(
                   height: 10.h,
@@ -92,10 +99,13 @@ class AddTurnoverView extends StatelessWidget {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    controller.addTurnover(
+                    create(
                       Turnover(
                         mount: _inputMount,
-                        turnoverType: box.read('turnoverType'),
+                        bankAccountId: 1,
+                        time: DateTime.now(),
+                        turnoverType: box.read('turnoverIndex'),
+                        description: _inputDescription,
                       ),
                     );
                     Navigator.pop(context);
