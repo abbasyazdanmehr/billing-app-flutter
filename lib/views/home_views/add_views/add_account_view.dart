@@ -1,5 +1,6 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
+import 'package:billing_app/db/bank_accounts_database.dart';
 import 'package:billing_app/models/bank_account.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,14 @@ class AddAccountView extends StatelessWidget {
   final controller = Get.put(ListViewController());
   final _formKey = GlobalKey<FormState>();
 
+  Future create(BankAccount bankAccount) async {
+    await BankAccountsDatabase.instance.createBankAccount(bankAccount);
+  }
+
   Widget formFields(BuildContext context) {
     String _inputName;
     int _inputBalance;
+    String _inputDescription;
     return Form(
       key: _formKey,
       child: Stack(
@@ -38,6 +44,23 @@ class AddAccountView extends StatelessWidget {
                     }
                   },
                   onSaved: (String value) => _inputName = value,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.description),
+                    hintText: 'Description',
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'this description is invalid';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onSaved: (String value) => _inputDescription = value,
                 ),
                 SizedBox(
                   height: 10,
@@ -75,11 +98,15 @@ class AddAccountView extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    print(_inputName);
                     _formKey.currentState.save();
-                    print(_inputName);
-                    controller.addAccount(
-                        BankAccount(name: _inputName, balance: _inputBalance));
+                    create(
+                      BankAccount(
+                        name: _inputName,
+                        balance: _inputBalance,
+                        created: DateTime.now(),
+                        description: _inputDescription,
+                      ),
+                    );
                     Navigator.pop(context);
                   }
                 },

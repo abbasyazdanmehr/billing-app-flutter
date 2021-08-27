@@ -77,7 +77,7 @@ class BillsDatabase {
         where: '${BillFields.id} = ?', whereArgs: [bill.id]);
   }
 
-  Future<int> deleteNote(int id) async {
+  Future<int> deleteBill(int id) async {
     final db = await instance.database;
 
     return db
