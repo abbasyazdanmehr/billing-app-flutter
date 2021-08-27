@@ -1,6 +1,7 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/db/turnovers_database.dart';
+import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_views/add_views/add_turnover_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -74,7 +75,8 @@ class _TurnoversListViewState extends State<TurnoversListView> {
         child: ListView(
           children: [
             for (var i = 0; i < turnovers.length; i++)
-              if (box.read('turnoverIndex') == turnovers[i].turnoverType)
+              if (box.read('turnoverIndex') == turnovers[i].turnoverType ||
+                  box.read('turnoverIndex') == TurnoverType.All.index)
                 block(i),
           ],
         ),
