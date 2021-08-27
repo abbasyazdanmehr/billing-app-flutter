@@ -2,7 +2,6 @@ import 'package:billing_app/views/profile_views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import 'package:sizer/sizer.dart';
 
 class Constants {
   static const Color themeColor = Colors.yellow;
