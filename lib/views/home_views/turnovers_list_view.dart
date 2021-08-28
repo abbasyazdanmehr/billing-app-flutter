@@ -23,8 +23,13 @@ class _TurnoversListViewState extends State<TurnoversListView> {
   @override
   Widget build(BuildContext context) {
     refreshTurnovers() async {
-      setState(() {});
       turnovers = await TurnoversDatabase.instance.readAllTurnovers();
+      setState(() {});
+    }
+
+    delete(id) async {
+      await TurnoversDatabase.instance.deleteTurnover(id);
+      setState(() {});
     }
 
     Widget turnoverContent(index) {
@@ -54,6 +59,29 @@ class _TurnoversListViewState extends State<TurnoversListView> {
                         child: Text('Choose Account!'),
                       ),
                     ),
+              PopupMenuButton<String>(
+                onSelected: (result) {
+                  if (result.contains('Delete')) {
+                    delete(turnovers[index].id);
+                  } else if (result.contains('Edit')) {
+                  } else if (result.contains('Info')) {}
+                  setState(() {});
+                },
+                itemBuilder: (context) => <PopupMenuEntry<String>>[
+                  const PopupMenuItem<String>(
+                    child: Text('Delete!'),
+                    value: 'Delete!',
+                  ),
+                  const PopupMenuItem<String>(
+                    child: Text('Edit!'),
+                    value: 'Edit!',
+                  ),
+                  const PopupMenuItem<String>(
+                    child: Text('Info!'),
+                    value: 'Info!',
+                  ),
+                ],
+              )
             ],
           ),
         ),
@@ -81,12 +109,14 @@ class _TurnoversListViewState extends State<TurnoversListView> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Get.to(AddTurnoverView());
-        },
-      ),
+      floatingActionButton: box.read('turnoverIndex') != TurnoverType.All.index
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                Get.to(AddTurnoverView());
+              },
+            )
+          : Container(),
     );
   }
 }

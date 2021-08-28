@@ -27,8 +27,13 @@ class _BillsListViewState extends State<BillsListView> {
   @override
   Widget build(BuildContext context) {
     refreshBills() async {
-      setState(() {});
       bills = await BillsDatabase.instance.readAllBills();
+      setState(() {});
+    }
+
+    delete(id) async {
+      await BillsDatabase.instance.deleteBill(id);
+      setState(() {});
     }
 
     Widget billContent(index) {
@@ -49,6 +54,29 @@ class _BillsListViewState extends State<BillsListView> {
                 showDateTime(bills[index].deadLine),
                 style: TextStyle(fontSize: 15.sp, color: Constants.themeColor),
               ),
+              PopupMenuButton<String>(
+                onSelected: (result) {
+                  if (result.contains('Delete')) {
+                    delete(bills[index].id);
+                  } else if (result.contains('Edit')) {
+                  } else if (result.contains('Info')) {}
+                  setState(() {});
+                },
+                itemBuilder: (context) => <PopupMenuEntry<String>>[
+                  const PopupMenuItem<String>(
+                    child: Text('Delete!'),
+                    value: 'Delete!',
+                  ),
+                  const PopupMenuItem<String>(
+                    child: Text('Edit!'),
+                    value: 'Edit!',
+                  ),
+                  const PopupMenuItem<String>(
+                    child: Text('Info!'),
+                    value: 'Info!',
+                  ),
+                ],
+              )
             ],
           ),
         ),

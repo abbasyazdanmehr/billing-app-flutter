@@ -17,8 +17,13 @@ class _AccountsListViewState extends State<AccountsListView> {
   @override
   Widget build(BuildContext context) {
     refreshBankAccounts() async {
-      setState(() {});
       bankAccounts = await BankAccountsDatabase.instance.readAllBankAccount();
+      setState(() {});
+    }
+
+    delete(id) async {
+      await BankAccountsDatabase.instance.deleteBankAccount(id);
+      setState(() {});
     }
 
     Widget accountContent(index) {
@@ -33,13 +38,40 @@ class _AccountsListViewState extends State<AccountsListView> {
                 bankAccounts[index].name,
                 style: TextStyle(fontSize: 22.sp),
               ),
-              Text(
-                bankAccounts[index].balance.toString() + ' \$',
-                style: TextStyle(
-                  color: Constants.themeColor,
-                  fontFamily: 'dubay',
-                  fontSize: 22.sp,
-                ),
+              Row(
+                children: [
+                  Text(
+                    bankAccounts[index].balance.toString() + ' \$',
+                    style: TextStyle(
+                      color: Constants.themeColor,
+                      fontFamily: 'dubay',
+                      fontSize: 22.sp,
+                    ),
+                  ),
+                  PopupMenuButton<String>(
+                    onSelected: (result) {
+                      if (result.contains('Delete')) {
+                        delete(bankAccounts[index].id);
+                      } else if (result.contains('Edit')) {
+                      } else if (result.contains('Info')) {}
+                      setState(() {});
+                    },
+                    itemBuilder: (context) => <PopupMenuEntry<String>>[
+                      const PopupMenuItem<String>(
+                        child: Text('Delete!'),
+                        value: 'Delete!',
+                      ),
+                      const PopupMenuItem<String>(
+                        child: Text('Edit!'),
+                        value: 'Edit!',
+                      ),
+                      const PopupMenuItem<String>(
+                        child: Text('Info!'),
+                        value: 'Info!',
+                      ),
+                    ],
+                  )
+                ],
               ),
             ],
           ),
