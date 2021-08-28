@@ -1,5 +1,5 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/views/home_views/accounts_list_view.dart';
+import 'package:billing_app/views/home_views/list_views/accounts_list_view.dart';
 import 'package:billing_app/views/profile_views/about_us_view.dart';
 import 'package:billing_app/views/profile_views/notes_list_view.dart';
 import 'package:billing_app/views/profile_views/personal_data_view.dart';

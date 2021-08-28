@@ -1,7 +1,7 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_view.dart';
-import 'package:billing_app/views/home_views/turnovers_list_view.dart';
+import 'package:billing_app/views/home_views/list_views/turnovers_list_view.dart';
 import 'package:billing_app/views/profile_view.dart';
 import 'package:billing_app/views/report_view.dart';
 import 'package:flutter/material.dart';

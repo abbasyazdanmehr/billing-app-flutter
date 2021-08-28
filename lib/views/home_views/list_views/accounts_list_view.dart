@@ -1,6 +1,7 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/db/bank_accounts_database.dart';
 import 'package:billing_app/views/home_views/add_views/add_account_view.dart';
+import 'package:billing_app/views/home_views/detail_views/account_detail_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class _AccountsListViewState extends State<AccountsListView> {
     refreshBankAccounts() async {
       bankAccounts = await BankAccountsDatabase.instance.readAllBankAccount();
       setState(() {});
+      print('object');
     }
 
     delete(id) async {
@@ -80,11 +82,21 @@ class _AccountsListViewState extends State<AccountsListView> {
     }
 
     block(index) {
-      return Constants.responsiveGlassBlock(
+      return TextButton(
+        child: Constants.responsiveGlassBlock(
           context: context,
           heightRatio: 0.1,
-          widthRatio: 0.95,
-          content: accountContent(index));
+          widthRatio: 0.93,
+          content: accountContent(index),
+        ),
+        onPressed: () {
+          Get.to(
+            AccountDetailView(
+              index: index,
+            ),
+          );
+        },
+      );
     }
 
     return Scaffold(
