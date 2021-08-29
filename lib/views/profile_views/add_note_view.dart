@@ -1,5 +1,4 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/db/notes_database.dart';
 import 'package:billing_app/models/note.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class AddNoteView extends StatelessWidget {
-  final controller = Get.put(ListViewController());
   final _formKey = GlobalKey<FormState>();
 
   Future createNote(Note note) async {

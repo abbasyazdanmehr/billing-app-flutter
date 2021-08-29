@@ -1,16 +1,13 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/db/turnovers_database.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/models/turnover.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
 class AddTurnoverView extends StatelessWidget {
-  final controller = Get.put(ListViewController());
   final _formKey = GlobalKey<FormState>();
   final box = GetStorage();
 
@@ -78,13 +75,6 @@ class AddTurnoverView extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 10.h,
-                ),
-                Obx(
-                  () {
-                    return Text(
-                      controller.turnovers.length.toString(),
-                    );
-                  },
                 ),
               ],
             ),

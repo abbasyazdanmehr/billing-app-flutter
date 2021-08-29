@@ -1,16 +1,13 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/db/bills_database.dart';
 import 'package:billing_app/models/bill.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
 
 class AddBillView extends StatelessWidget {
-  final controller = Get.put(ListViewController());
   final _formKey = GlobalKey<FormState>();
 
   Future create(Bill bill) async {
@@ -92,13 +89,6 @@ class AddBillView extends StatelessWidget {
                     await Future.delayed(Duration(seconds: 2));
                     _inputDeadLine = deadLine;
                     return deadLine;
-                  },
-                ),
-                Obx(
-                  () {
-                    return Text(
-                      controller.bills.length.toString(),
-                    );
                   },
                 ),
               ],

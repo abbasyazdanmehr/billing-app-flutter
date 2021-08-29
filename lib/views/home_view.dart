@@ -1,5 +1,4 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_views/list_views/accounts_list_view.dart';
 import 'package:billing_app/views/home_views/add_views/add_account_view.dart';
@@ -14,7 +13,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeView extends StatelessWidget {
-  final ListViewController accountsController = Get.put(ListViewController());
   final box = GetStorage();
   @override
   Widget build(BuildContext context) {

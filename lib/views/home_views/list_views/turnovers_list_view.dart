@@ -1,5 +1,5 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/controllers/lists_controller.dart';
+import 'package:billing_app/controllers/bank_accounts_controller.dart';
 import 'package:billing_app/db/turnovers_database.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_views/add_views/add_turnover_view.dart';
@@ -14,8 +14,6 @@ class TurnoversListView extends StatefulWidget {
 }
 
 class _TurnoversListViewState extends State<TurnoversListView> {
-  final controller = Get.put(ListViewController());
-
   final box = GetStorage();
 
   var turnovers = [];

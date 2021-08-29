@@ -1,6 +1,5 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/controllers/lists_controller.dart';
-import 'package:billing_app/db/bank_accounts_database.dart';
+import 'package:billing_app/controllers/bank_accounts_controller.dart';
 import 'package:billing_app/views/home_views/add_views/add_account_view.dart';
 import 'package:billing_app/views/home_views/detail_views/account_detail_view.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class AccountsListView extends StatelessWidget {
-  final controller = Get.put(ListViewController());
+  final controller = Get.put(BankAccountsController());
   @override
   Widget build(BuildContext context) {
     Widget accountContent(index) {
@@ -42,7 +41,10 @@ class AccountsListView extends StatelessWidget {
                         controller.deleteBankAccount(
                             controller.bankAccounts[index].id);
                       } else if (result.contains('Edit')) {
-                      } else if (result.contains('Info')) {}
+                      } else if (result.contains('Info')) {
+                      } else {
+                        print('Not fount!!!');
+                      }
                     },
                     itemBuilder: (context) => <PopupMenuEntry<String>>[
                       const PopupMenuItem<String>(
@@ -91,7 +93,7 @@ class AccountsListView extends StatelessWidget {
     return Scaffold(
       appBar: Constants.customAppBar(),
       body: RefreshIndicator(
-        onRefresh: controller.fetchListFromDatabase,
+        onRefresh: controller.fetchBankAccountsFromDatabase,
         child: Obx(
           () {
             return ListView(

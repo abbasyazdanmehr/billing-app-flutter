@@ -1,5 +1,4 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/db/bills_database.dart';
 import 'package:billing_app/models/bill.dart';
 import 'package:billing_app/views/home_views/add_views/add_bill_view.dart';
@@ -13,7 +12,6 @@ class BillsListView extends StatefulWidget {
 }
 
 class _BillsListViewState extends State<BillsListView> {
-  final controller = Get.put(ListViewController());
   List<Bill> bills = [];
 
   String showDateTime(DateTime dateTime) {
