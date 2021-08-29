@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 class Constants {
-  static const Color themeColor = Colors.yellow;
+  static const Color themeColor = Colors.green;
   static const Color textColor = Colors.black;
-  static const Color backgroundsColor = Colors.deepPurple;
+  static const Color backgroundsColor = Colors.white;
   static const Color darkColor = Colors.black;
   static const Color lightColor = Colors.grey;
 
@@ -57,13 +57,13 @@ class Constants {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFFffffff).withOpacity(0.8),
-                Color(0xfff1c40f)
-                    .withOpacity(0.01), // low: glass   high: plastic
+                Color(0xff778068).withOpacity(0.8),
+                Color(0xff6B8068)
+                    .withOpacity(0.6), // low: glass   high: plastic
               ],
               stops: [
-                0.05,
-                0.6, // low: glass   high: plastic
+                0.1,
+                0.8, // low: glass   high: plastic
               ]),
           borderGradient: LinearGradient(
             begin: Alignment.bottomRight,
