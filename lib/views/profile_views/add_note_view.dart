@@ -3,7 +3,6 @@ import 'package:billing_app/db/notes_database.dart';
 import 'package:billing_app/models/note.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class AddNoteView extends StatelessWidget {

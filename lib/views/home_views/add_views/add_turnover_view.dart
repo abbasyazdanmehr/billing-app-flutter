@@ -1,19 +1,17 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/db/turnovers_database.dart';
+import 'package:billing_app/controllers/turnovers_controller.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/models/turnover.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
 class AddTurnoverView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final box = GetStorage();
-
-  Future create(Turnover turnover) async {
-    await TurnoversDatabase.instance.createTurnover(turnover);
-  }
+  final controller = Get.put(TurnoversController());
 
   Widget formFields(BuildContext context) {
     int _inputMount;
@@ -89,10 +87,10 @@ class AddTurnoverView extends StatelessWidget {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    create(
+                    controller.createTurnover(
                       Turnover(
                         mount: _inputMount,
-                        bankAccountId: 1,
+                        bankAccountId: 1, //TODO: _inputBankAccount
                         time: DateTime.now(),
                         turnoverType: box.read('turnoverIndex'),
                         description: _inputDescription,

@@ -1,6 +1,5 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/controllers/bank_accounts_controller.dart';
-import 'package:billing_app/db/turnovers_database.dart';
+import 'package:billing_app/controllers/turnovers_controller.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_views/add_views/add_turnover_view.dart';
 import 'package:flutter/material.dart';
@@ -15,21 +14,10 @@ class TurnoversListView extends StatefulWidget {
 
 class _TurnoversListViewState extends State<TurnoversListView> {
   final box = GetStorage();
-
-  var turnovers = [];
+  final controller = Get.put(TurnoversController());
 
   @override
   Widget build(BuildContext context) {
-    refreshTurnovers() async {
-      turnovers = await TurnoversDatabase.instance.readAllTurnovers();
-      setState(() {});
-    }
-
-    delete(id) async {
-      await TurnoversDatabase.instance.deleteTurnover(id);
-      setState(() {});
-    }
-
     Widget turnoverContent(index) {
       return Padding(
         padding: const EdgeInsets.all(10),
@@ -39,14 +27,14 @@ class _TurnoversListViewState extends State<TurnoversListView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                turnovers[index].mount.toString() + ' \$',
+                controller.turnovers[index].mount.toString() + ' \$',
                 style: TextStyle(
                   fontSize: 22.sp,
                 ),
               ),
-              turnovers[index].bankAccountId != null
+              controller.turnovers[index].bankAccountId != null
                   ? Text(
-                      turnovers[index].bankAccountId.toString(),
+                      controller.turnovers[index].bankAccountId.toString(),
                       style: TextStyle(
                           fontSize: 22.sp, color: Constants.themeColor),
                     )
@@ -60,7 +48,7 @@ class _TurnoversListViewState extends State<TurnoversListView> {
               PopupMenuButton<String>(
                 onSelected: (result) {
                   if (result.contains('Delete')) {
-                    delete(turnovers[index].id);
+                    controller.deleteTurnover(controller.turnovers[index].id);
                   } else if (result.contains('Edit')) {
                   } else if (result.contains('Info')) {}
                   setState(() {});
@@ -96,16 +84,18 @@ class _TurnoversListViewState extends State<TurnoversListView> {
 
     return Scaffold(
       appBar: Constants.customAppBar(),
-      body: RefreshIndicator(
-        onRefresh: refreshTurnovers,
-        child: ListView(
-          children: [
-            for (var i = 0; i < turnovers.length; i++)
-              if (box.read('turnoverIndex') == turnovers[i].turnoverType ||
-                  box.read('turnoverIndex') == TurnoverType.All.index)
-                block(i),
-          ],
-        ),
+      body: Obx(
+        () {
+          return ListView(
+            children: [
+              for (var i = 0; i < controller.turnovers.length; i++)
+                if (box.read('turnoverIndex') ==
+                        controller.turnovers[i].turnoverType ||
+                    box.read('turnoverIndex') == TurnoverType.All.index)
+                  block(i),
+            ],
+          );
+        },
       ),
       floatingActionButton: box.read('turnoverIndex') != TurnoverType.All.index
           ? FloatingActionButton(
