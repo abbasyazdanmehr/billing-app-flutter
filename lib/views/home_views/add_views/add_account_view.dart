@@ -1,6 +1,5 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/lists_controller.dart';
-import 'package:billing_app/db/bank_accounts_database.dart';
 import 'package:billing_app/models/bank_account.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +9,6 @@ import 'package:sizer/sizer.dart';
 class AddAccountView extends StatelessWidget {
   final controller = Get.put(ListViewController());
   final _formKey = GlobalKey<FormState>();
-
-  Future create(BankAccount bankAccount) async {
-    await BankAccountsDatabase.instance.createBankAccount(bankAccount);
-  }
 
   Widget formFields(BuildContext context) {
     String _inputName;
@@ -79,13 +74,6 @@ class AddAccountView extends StatelessWidget {
                   },
                   onSaved: (String value) => _inputBalance = int.parse(value),
                 ),
-                Obx(
-                  () {
-                    return Text(
-                      controller.bankAccounts.length.toString(),
-                    );
-                  },
-                ),
               ],
             ),
           ),
@@ -99,7 +87,7 @@ class AddAccountView extends StatelessWidget {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    create(
+                    controller.addBankAccount(
                       BankAccount(
                         name: _inputName,
                         balance: _inputBalance,

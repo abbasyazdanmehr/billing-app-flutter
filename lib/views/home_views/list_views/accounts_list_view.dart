@@ -1,4 +1,5 @@
 import 'package:billing_app/constants/constants.dart';
+import 'package:billing_app/controllers/lists_controller.dart';
 import 'package:billing_app/db/bank_accounts_database.dart';
 import 'package:billing_app/views/home_views/add_views/add_account_view.dart';
 import 'package:billing_app/views/home_views/detail_views/account_detail_view.dart';
@@ -7,27 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class AccountsListView extends StatefulWidget {
-  @override
-  _AccountsListViewState createState() => _AccountsListViewState();
-}
-
-class _AccountsListViewState extends State<AccountsListView> {
-  var bankAccounts = [];
-
+class AccountsListView extends StatelessWidget {
+  final controller = Get.put(ListViewController());
   @override
   Widget build(BuildContext context) {
-    refreshBankAccounts() async {
-      bankAccounts = await BankAccountsDatabase.instance.readAllBankAccount();
-      setState(() {});
-      print('object');
-    }
-
-    delete(id) async {
-      await BankAccountsDatabase.instance.deleteBankAccount(id);
-      setState(() {});
-    }
-
     Widget accountContent(index) {
       return Padding(
         padding: const EdgeInsets.all(10),
@@ -36,14 +20,16 @@ class _AccountsListViewState extends State<AccountsListView> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                bankAccounts[index].name,
-                style: TextStyle(fontSize: 22.sp),
-              ),
+              Obx(() {
+                return Text(
+                  controller.bankAccounts[index].name,
+                  style: TextStyle(fontSize: 22.sp),
+                );
+              }),
               Row(
                 children: [
                   Text(
-                    bankAccounts[index].balance.toString() + ' \$',
+                    controller.bankAccounts[index].balance.toString() + ' \$',
                     style: TextStyle(
                       color: Constants.themeColor,
                       fontFamily: 'dubay',
@@ -53,10 +39,10 @@ class _AccountsListViewState extends State<AccountsListView> {
                   PopupMenuButton<String>(
                     onSelected: (result) {
                       if (result.contains('Delete')) {
-                        delete(bankAccounts[index].id);
+                        controller.deleteBankAccount(
+                            controller.bankAccounts[index].id);
                       } else if (result.contains('Edit')) {
                       } else if (result.contains('Info')) {}
-                      setState(() {});
                     },
                     itemBuilder: (context) => <PopupMenuEntry<String>>[
                       const PopupMenuItem<String>(
@@ -72,7 +58,7 @@ class _AccountsListViewState extends State<AccountsListView> {
                         value: 'Info!',
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ],
@@ -83,6 +69,9 @@ class _AccountsListViewState extends State<AccountsListView> {
 
     block(index) {
       return TextButton(
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+        ),
         child: Constants.responsiveGlassBlock(
           context: context,
           heightRatio: 0.1,
@@ -102,11 +91,16 @@ class _AccountsListViewState extends State<AccountsListView> {
     return Scaffold(
       appBar: Constants.customAppBar(),
       body: RefreshIndicator(
-        onRefresh: refreshBankAccounts,
-        child: ListView(
-          children: [
-            for (var i = 0; i < bankAccounts.length; i++) block(i),
-          ],
+        onRefresh: controller.fetchListFromDatabase,
+        child: Obx(
+          () {
+            return ListView(
+              children: [
+                for (var i = 0; i < controller.bankAccounts.length; i++)
+                  block(i),
+              ],
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
