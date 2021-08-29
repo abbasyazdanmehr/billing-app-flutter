@@ -1,18 +1,16 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/db/bills_database.dart';
+import 'package:billing_app/controllers/bills_controller.dart';
 import 'package:billing_app/models/bill.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
 
 class AddBillView extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-
-  Future create(Bill bill) async {
-    await BillsDatabase.instance.createBill(bill);
-  }
+  final controller = Get.put(BillsController());
 
   Widget formFields(BuildContext context) {
     String _inputCreditorName;
@@ -104,7 +102,7 @@ class AddBillView extends StatelessWidget {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    create(Bill(
+                    controller.createBill(Bill(
                       mount: _inputMount,
                       creditorName: _inputCreditorName,
                       description: _inputDescription,

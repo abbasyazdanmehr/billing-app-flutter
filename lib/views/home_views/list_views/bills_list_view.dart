@@ -1,18 +1,12 @@
 import 'package:billing_app/constants/constants.dart';
-import 'package:billing_app/db/bills_database.dart';
-import 'package:billing_app/models/bill.dart';
+import 'package:billing_app/controllers/bills_controller.dart';
 import 'package:billing_app/views/home_views/add_views/add_bill_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class BillsListView extends StatefulWidget {
-  @override
-  _BillsListViewState createState() => _BillsListViewState();
-}
-
-class _BillsListViewState extends State<BillsListView> {
-  List<Bill> bills = [];
+class BillsListView extends StatelessWidget {
+  final controller = Get.put(BillsController());
 
   String showDateTime(DateTime dateTime) {
     return dateTime.year.toString() +
@@ -24,16 +18,6 @@ class _BillsListViewState extends State<BillsListView> {
 
   @override
   Widget build(BuildContext context) {
-    refreshBills() async {
-      bills = await BillsDatabase.instance.readAllBills();
-      setState(() {});
-    }
-
-    delete(id) async {
-      await BillsDatabase.instance.deleteBill(id);
-      setState(() {});
-    }
-
     Widget billContent(index) {
       return Padding(
         padding: const EdgeInsets.all(10),
@@ -43,22 +27,21 @@ class _BillsListViewState extends State<BillsListView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                bills[index].mount.toString() + ' \$',
+                controller.bills[index].mount.toString() + ' \$',
                 style: TextStyle(
                   fontSize: 22.sp,
                 ),
               ),
               Text(
-                showDateTime(bills[index].deadLine),
+                showDateTime(controller.bills[index].deadLine),
                 style: TextStyle(fontSize: 15.sp, color: Constants.themeColor),
               ),
               PopupMenuButton<String>(
                 onSelected: (result) {
                   if (result.contains('Delete')) {
-                    delete(bills[index].id);
+                    controller.deleteBill(controller.bills[index].id);
                   } else if (result.contains('Edit')) {
                   } else if (result.contains('Info')) {}
-                  setState(() {});
                 },
                 itemBuilder: (context) => <PopupMenuEntry<String>>[
                   const PopupMenuItem<String>(
@@ -91,17 +74,13 @@ class _BillsListViewState extends State<BillsListView> {
 
     return Scaffold(
       appBar: Constants.customAppBar(),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await refreshBills();
-        },
-        child: ListView(
+      body: Obx(() {
+        return ListView(
           children: [
-            for (var i = 0; i < bills.length; i++) block(i),
-            Text(bills.length.toString())
+            for (var i = 0; i < controller.bills.length; i++) block(i),
           ],
-        ),
-      ),
+        );
+      }),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
