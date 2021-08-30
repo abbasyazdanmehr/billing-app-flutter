@@ -1,4 +1,5 @@
 import 'package:billing_app/constants/constants.dart';
+import 'package:billing_app/controllers/bank_accounts_controller.dart';
 import 'package:billing_app/controllers/turnovers_controller.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/models/turnover.dart';
@@ -8,15 +9,56 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
-class AddTurnoverView extends StatelessWidget {
+class AddTurnoverView extends StatefulWidget {
+  @override
+  _AddTurnoverViewState createState() => _AddTurnoverViewState();
+}
+
+class _AddTurnoverViewState extends State<AddTurnoverView> {
   final _formKey = GlobalKey<FormState>();
+
   final box = GetStorage();
-  final controller = Get.put(TurnoversController());
+
+  final turnoverController = Get.put(TurnoversController());
+
+  final bankAccountsController = Get.put(BankAccountsController());
+  int _inputMount;
+  int _inputBankAccountIndex;
+  String _inputDescription;
+
+  bankChoice(index) {
+    return TextButton(
+      onPressed: () {
+        _inputBankAccountIndex = index;
+        setState(() {});
+        Navigator.pop(context);
+      },
+      child: Text(bankAccountsController.bankAccounts[index].name),
+    );
+  }
+
+  chosingBankAccount() {
+    return ElevatedButton(
+      onPressed: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) => Container(
+            child: Wrap(
+              children: [
+                for (var i = 0;
+                    i < bankAccountsController.bankAccounts.length;
+                    i++)
+                  bankChoice(i),
+              ],
+            ),
+          ),
+        );
+      },
+      child: Text('Change bank account'),
+    );
+  }
 
   Widget formFields(BuildContext context) {
-    int _inputMount;
-    String _inputDescription;
-
     return Form(
       key: _formKey,
       child: Stack(
@@ -74,6 +116,27 @@ class AddTurnoverView extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
+                chosingBankAccount(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _inputBankAccountIndex == null
+                        ? Text('no One')
+                        : Text(
+                            bankAccountsController
+                                .bankAccounts[_inputBankAccountIndex].name,
+                          ),
+                    _inputBankAccountIndex == null
+                        ? Container()
+                        : IconButton(
+                            onPressed: () {
+                              _inputBankAccountIndex = null;
+                              setState(() {});
+                            },
+                            icon: Icon(Icons.close),
+                          )
+                  ],
+                )
               ],
             ),
           ),
@@ -87,10 +150,13 @@ class AddTurnoverView extends StatelessWidget {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    controller.createTurnover(
+                    turnoverController.createTurnover(
                       Turnover(
                         mount: _inputMount,
-                        bankAccountId: 1, //TODO: _inputBankAccount
+                        bankAccountId: _inputBankAccountIndex == null
+                            ? 0
+                            : bankAccountsController
+                                .bankAccounts[_inputBankAccountIndex].id,
                         time: DateTime.now(),
                         turnoverType: box.read('turnoverIndex'),
                         description: _inputDescription,
