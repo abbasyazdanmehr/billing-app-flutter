@@ -1,6 +1,5 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/bank_accounts_controller.dart';
-import 'package:billing_app/controllers/bills_controller.dart';
 import 'package:billing_app/controllers/turnovers_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,8 +24,10 @@ class TurnoverDetailView extends StatelessWidget {
             ],
           ),
           Text('Mount: ${controller.turnovers[index].mount.toString()} \$'),
-          Text(
-              'Bank Account: ${accountController.getBankAccount(12).name}'), //TODO: 12 :/
+          // controller.turnovers[index].bankAccountId == 0
+          //     ? Text('No bank account')
+          //     : Text(
+          //         'Bank account: ${accountController.getBankAccount(controller.turnovers[index].bankAccountId)}'), //TODO: showing bank account :/
           Text(
               'Time: ${controller.turnovers[index].time.toString().substring(0, 19)}'),
           Text('Description: ${controller.turnovers[index].description}'),

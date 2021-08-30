@@ -25,7 +25,7 @@ class Turnover {
   int mount;
   int bankAccountId;
   DateTime time;
-  int turnoverType = TurnoverType.All.index;
+  int turnoverType;
   String description;
   Turnover({
     this.id,

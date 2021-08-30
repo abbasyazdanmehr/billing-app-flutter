@@ -23,10 +23,10 @@ class TurnoversDatabase {
   Future<Database> _initDB(String dbName) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, dbName);
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 1, onCreate: createDB);
   }
 
-  Future _createDB(Database db, int version) async {
+  Future createDB(Database db, int version) async {
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     final intType = 'INTEGER NOT NULL';
     final textType = 'TEXT NOT NULL';
@@ -39,9 +39,17 @@ class TurnoversDatabase {
       ${TurnoverFields.time} $textType,
       ${TurnoverFields.turnoverType} $intType,
       ${TurnoverFields.description} $textType,
-      FOREIGN KEY(${TurnoverFields.bankAccountId}) REFERENCES $tableBankAccounts(${BankAccountsFields.id})
+      FOREIGN KEY(${TurnoverFields.bankAccountId}) 
+      REFERENCES $tableBankAccounts(${BankAccountsFields.id})
+      ON DELETE CASCADE
     )
     ''');
+  }
+
+  Future dropDB() async {
+    final db = await instance.database;
+
+    db.execute('''DROP TABLE IF EXISTS $tableTurnovers''');
   }
 
   Future<Turnover> createTurnover(Turnover turnover) async {
