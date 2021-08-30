@@ -8,12 +8,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
-class TurnoversListView extends StatefulWidget {
-  @override
-  _TurnoversListViewState createState() => _TurnoversListViewState();
-}
+class TurnoversListView extends StatelessWidget {
+  final int bankAccountId;
+  TurnoversListView({this.bankAccountId = 0}); // 0 means no bank account id
 
-class _TurnoversListViewState extends State<TurnoversListView> {
   final box = GetStorage();
   final controller = Get.put(TurnoversController());
 
@@ -52,7 +50,6 @@ class _TurnoversListViewState extends State<TurnoversListView> {
                     controller.deleteTurnover(controller.turnovers[index].id);
                   } else if (result.contains('Edit')) {
                   } else if (result.contains('Info')) {}
-                  setState(() {});
                 },
                 itemBuilder: (context) => <PopupMenuEntry<String>>[
                   const PopupMenuItem<String>(
@@ -102,9 +99,14 @@ class _TurnoversListViewState extends State<TurnoversListView> {
           return ListView(
             children: [
               for (var i = 0; i < controller.turnovers.length; i++)
-                if (box.read('turnoverIndex') ==
-                        controller.turnovers[i].turnoverType ||
-                    box.read('turnoverIndex') == TurnoverType.All.index)
+                if ((bankAccountId != 0 &&
+                        bankAccountId ==
+                            controller.turnovers[i].bankAccountId) ||
+                    ((bankAccountId == 0) &&
+                        (box.read('turnoverIndex') ==
+                                controller.turnovers[i].turnoverType ||
+                            box.read('turnoverIndex') ==
+                                TurnoverType.All.index)))
                   block(i),
             ],
           );

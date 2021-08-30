@@ -1,5 +1,6 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/bank_accounts_controller.dart';
+import 'package:billing_app/views/home_views/list_views/turnovers_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,6 +26,16 @@ class AccountDetailView extends StatelessWidget {
           Text(
               'Created: ${controller.bankAccounts[index].created.toString().substring(0, 19)}'),
           Text('Description: ${controller.bankAccounts[index].description}'),
+          TextButton(
+            onPressed: () {
+              Get.to(
+                TurnoversListView(
+                  bankAccountId: 1, // TODO: controller.bankAccounts[index].id
+                ),
+              );
+            },
+            child: Text('See Turnovers'),
+          ),
         ],
       );
     }
