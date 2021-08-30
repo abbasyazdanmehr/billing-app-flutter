@@ -1,6 +1,7 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/bills_controller.dart';
 import 'package:billing_app/views/home_views/add_views/add_bill_view.dart';
+import 'package:billing_app/views/home_views/detail_views/bill_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -65,11 +66,23 @@ class BillsListView extends StatelessWidget {
     }
 
     block(index) {
-      return Constants.responsiveGlassBlock(
-          context: context,
-          heightRatio: 0.1,
-          widthRatio: 0.95,
-          content: billContent(index));
+      return TextButton(
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+        ),
+        onPressed: () {
+          Get.to(
+            BillDetailView(
+              index: index,
+            ),
+          );
+        },
+        child: Constants.responsiveGlassBlock(
+            context: context,
+            heightRatio: 0.1,
+            widthRatio: 0.95,
+            content: billContent(index)),
+      );
     }
 
     return Scaffold(

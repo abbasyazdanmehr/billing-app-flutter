@@ -27,4 +27,9 @@ class BankAccountsController extends GetxController {
     bankAccounts.removeWhere((element) => element.id == id);
     print('bank account id=$id removed.');
   }
+
+  BankAccount getBankAccount(id) {
+    final account = bankAccounts.where((element) => element.id == id);
+    return account.first;
+  }
 }
