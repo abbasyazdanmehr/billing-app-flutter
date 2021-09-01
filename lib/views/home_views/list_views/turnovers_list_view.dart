@@ -85,10 +85,11 @@ class TurnoversListView extends StatelessWidget {
           );
         },
         child: Constants.responsiveGlassBlock(
-            context: context,
-            heightRatio: 0.1,
-            widthRatio: 0.95,
-            content: turnoverContent(index)),
+          context: context,
+          heightRatio: 0.1,
+          widthRatio: 0.95,
+          content: turnoverContent(index),
+        ),
       );
     }
 

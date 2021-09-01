@@ -1,4 +1,3 @@
-import 'package:billing_app/enums/turnover_type.dart';
 import 'package:flutter/cupertino.dart';
 
 final String tableTurnovers = 'turnovers';

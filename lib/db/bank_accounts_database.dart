@@ -6,7 +6,6 @@ import 'dart:async';
 
 class BankAccountsDatabase {
   static final BankAccountsDatabase instance = BankAccountsDatabase._init();
-
   BankAccountsDatabase._init();
 
   static Database _database;
@@ -43,6 +42,7 @@ class BankAccountsDatabase {
 
   Future<BankAccount> createBankAccount(BankAccount bankAccount) async {
     final db = await instance.database;
+    print(db.path);
 
     final id = await db.insert(tableBankAccounts, bankAccount.toJson());
     return bankAccount.copy(id: id);

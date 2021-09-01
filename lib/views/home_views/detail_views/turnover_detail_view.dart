@@ -1,6 +1,7 @@
 import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/bank_accounts_controller.dart';
 import 'package:billing_app/controllers/turnovers_controller.dart';
+import 'package:billing_app/enums/turnover_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,15 @@ class TurnoverDetailView extends StatelessWidget {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text('${controller.turnovers[index].turnoverType}'),
+          if (controller.turnovers[index].turnoverType ==
+              TurnoverType.Income.index)
+            Text('Income'),
+          if (controller.turnovers[index].turnoverType ==
+              TurnoverType.Cost.index)
+            Text('Cost'),
+          if (controller.turnovers[index].turnoverType ==
+              TurnoverType.FutureCost.index)
+            Text('Future Cost'),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -24,10 +33,10 @@ class TurnoverDetailView extends StatelessWidget {
             ],
           ),
           Text('Mount: ${controller.turnovers[index].mount.toString()} \$'),
-          // controller.turnovers[index].bankAccountId == 0
-          //     ? Text('No bank account')
-          //     : Text(
-          //         'Bank account: ${accountController.getBankAccount(controller.turnovers[index].bankAccountId)}'), //TODO: showing bank account :/
+          controller.turnovers[index].bankAccountId == 0
+              ? Text('No bank account')
+              : Text(
+                  'Bank account: ${accountController.getBankAccount(controller.turnovers[index].bankAccountId).name}'),
           Text(
               'Time: ${controller.turnovers[index].time.toString().substring(0, 19)}'),
           Text('Description: ${controller.turnovers[index].description}'),
