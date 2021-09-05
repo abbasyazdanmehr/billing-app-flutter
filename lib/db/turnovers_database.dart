@@ -35,7 +35,7 @@ class TurnoversDatabase {
     CREATE TABLE $tableTurnovers (
       ${TurnoverFields.id} $idType,
       ${TurnoverFields.mount} $intType,
-      ${TurnoverFields.bankAccountId} $intType,
+      ${TurnoverFields.bankAccountId} INTEGER,
       ${TurnoverFields.time} $textType,
       ${TurnoverFields.turnoverType} $intType,
       ${TurnoverFields.description} $textType,
