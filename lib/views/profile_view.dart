@@ -20,15 +20,15 @@ class ProfileView extends StatelessWidget {
         content: TextButton(
           onPressed: () {
             if (choiceText == 'Edit Profile') {
-              Get.to(PersonalDataView());
+              Get.to(() => PersonalDataView());
             } else if (choiceText == 'Settings') {
-              Get.to(SettingsView());
+              Get.to(() => SettingsView());
             } else if (choiceText == 'About Us') {
-              Get.to(AboutUsView());
+              Get.to(() => AboutUsView());
             } else if (choiceText == 'Bank Accounts') {
-              Get.to(AccountsListView());
+              Get.to(() => AccountsListView());
             } else {
-              Get.to(NotesListView());
+              Get.to(() => NotesListView());
             }
           },
           child: Padding(

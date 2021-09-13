@@ -37,19 +37,19 @@ class HomeView extends StatelessWidget {
       return TextButton(
         onPressed: () {
           if (choiceText.contains('Accounts')) {
-            Get.to(AddAccountView());
+            Get.to(() => AddAccountView());
           } else if (choiceText.contains('Bills')) {
-            Get.to(AddBillView());
+            Get.to(() => AddBillView());
           } else if (choiceText.contains('Incomes')) {
             box.write('turnoverIndex', TurnoverType.Income.index);
-            Get.to(AddTurnoverView());
+            Get.to(() => AddTurnoverView());
           } else if (choiceText.contains('Costs')) {
             box.write('turnoverIndex', TurnoverType.Cost.index);
-            Get.to(AddTurnoverView());
+            Get.to(() => AddTurnoverView());
           } else if (choiceText.contains('Future Cost')) {
             // Future Costs
             box.write('turnoverIndex', TurnoverType.FutureCost.index);
-            Get.to(AddTurnoverView());
+            Get.to(() => AddTurnoverView());
           }
         },
         child: Constants.responsiveGlassBlock(
@@ -71,19 +71,19 @@ class HomeView extends StatelessWidget {
         content: TextButton(
             onPressed: () {
               if (choiceText.contains('Accounts')) {
-                Get.to(AccountsListView());
+                Get.to(() => AccountsListView());
               } else if (choiceText.contains('Bills')) {
-                Get.to(BillsListView());
+                Get.to(() => BillsListView());
               } else if (choiceText.contains('Incomes')) {
                 box.write('turnoverIndex', TurnoverType.Income.index);
-                Get.to(TurnoversListView());
+                Get.to(() => TurnoversListView());
               } else if (choiceText.contains('Costs')) {
                 box.write('turnoverIndex', TurnoverType.Cost.index);
-                Get.to(TurnoversListView());
+                Get.to(() => TurnoversListView());
               } else {
                 // Future Costs
                 box.write('turnoverIndex', TurnoverType.FutureCost.index);
-                Get.to(TurnoversListView());
+                Get.to(() => TurnoversListView());
               }
             },
             child: Row(

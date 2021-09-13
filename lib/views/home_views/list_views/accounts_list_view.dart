@@ -82,7 +82,7 @@ class AccountsListView extends StatelessWidget {
         ),
         onPressed: () {
           Get.to(
-            AccountDetailView(
+            () => AccountDetailView(
               index: index,
             ),
           );
@@ -108,7 +108,7 @@ class AccountsListView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Get.to(AddAccountView());
+          Get.to(() => AddAccountView());
         },
       ),
     );

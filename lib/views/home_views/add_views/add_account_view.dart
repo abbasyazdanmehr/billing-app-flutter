@@ -95,7 +95,7 @@ class AddAccountView extends StatelessWidget {
                         description: _inputDescription,
                       ),
                     );
-                    Navigator.pop(context);
+                    Get.back();
                   }
                 },
                 child: Text('Add'),

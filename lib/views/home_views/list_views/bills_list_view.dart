@@ -72,7 +72,7 @@ class BillsListView extends StatelessWidget {
         ),
         onPressed: () {
           Get.to(
-            BillDetailView(
+            () => BillDetailView(
               index: index,
             ),
           );
@@ -97,7 +97,7 @@ class BillsListView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Get.to(AddBillView());
+          Get.to(() => AddBillView());
         },
       ),
     );

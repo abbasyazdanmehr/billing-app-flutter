@@ -29,7 +29,7 @@ class AccountDetailView extends StatelessWidget {
           TextButton(
             onPressed: () {
               Get.to(
-                TurnoversListView(
+                () => TurnoversListView(
                   bankAccountId: controller.bankAccounts[index].id,
                 ),
               );

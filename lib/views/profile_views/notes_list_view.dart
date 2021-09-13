@@ -66,7 +66,7 @@ class _NotesListViewState extends State<NotesListView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          await Get.to(AddNoteView());
+          await Get.to(() => AddNoteView());
         },
         child: Icon(Icons.add),
       ),

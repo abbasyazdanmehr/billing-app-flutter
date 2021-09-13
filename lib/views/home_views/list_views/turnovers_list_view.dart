@@ -79,7 +79,7 @@ class TurnoversListView extends StatelessWidget {
         ),
         onPressed: () {
           Get.to(
-            TurnoverDetailView(
+            () => TurnoverDetailView(
               index: index,
             ),
           );
@@ -117,7 +117,7 @@ class TurnoversListView extends StatelessWidget {
           ? FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () {
-                Get.to(AddTurnoverView());
+                Get.to(() => AddTurnoverView());
               },
             )
           : Container(),

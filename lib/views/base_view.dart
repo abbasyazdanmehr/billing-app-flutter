@@ -50,7 +50,7 @@ class _BaseViewState extends State<BaseView> {
         onPressed: () {
           Navigator.pop(context);
           box.write('turnoverIndex', TurnoverType.All.index);
-          Get.to(TurnoversListView());
+          Get.to(() => TurnoversListView());
         },
       ),
     );

@@ -8,14 +8,22 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
 
-class AddBillView extends StatelessWidget {
+class AddBillView extends StatefulWidget {
+  @override
+  _AddBillViewState createState() => _AddBillViewState();
+}
+
+class _AddBillViewState extends State<AddBillView> {
   final _formKey = GlobalKey<FormState>();
+
   final controller = Get.put(BillsController());
 
-  Widget formFields(BuildContext context) {
+  DateTime _inputDeadLine;
+
+  Widget formFields(context) {
     String _inputCreditorName;
     String _inputDescription;
-    DateTime _inputDeadLine;
+
     int _inputMount;
     final format = DateFormat("yyyy-MM-dd");
     return Form(
@@ -84,8 +92,10 @@ class AddBillView extends StatelessWidget {
                       initialDate: currentValue ?? DateTime.now(),
                       lastDate: DateTime(2100),
                     );
-                    await Future.delayed(Duration(seconds: 2));
+                    print(deadLine);
                     _inputDeadLine = deadLine;
+                    print('//////lll');
+                    print(_inputDeadLine);
                     return deadLine;
                   },
                 ),
@@ -108,7 +118,7 @@ class AddBillView extends StatelessWidget {
                       description: _inputDescription,
                       deadLine: _inputDeadLine,
                     ));
-                    Navigator.pop(context);
+                    Get.back();
                   }
                 },
                 child: Text(
