@@ -2,6 +2,7 @@ import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/bank_accounts_controller.dart';
 import 'package:billing_app/controllers/turnovers_controller.dart';
 import 'package:billing_app/enums/turnover_type.dart';
+import 'package:billing_app/models/bank_account.dart';
 import 'package:billing_app/models/turnover.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +10,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
-class AddTurnoverView extends StatefulWidget {
+class AddCostView extends StatefulWidget {
   @override
-  _AddTurnoverViewState createState() => _AddTurnoverViewState();
+  _AddCostViewState createState() => _AddCostViewState();
 }
 
-class _AddTurnoverViewState extends State<AddTurnoverView> {
+class _AddCostViewState extends State<AddCostView> {
   final _formKey = GlobalKey<FormState>();
 
   final box = GetStorage();
@@ -31,7 +32,7 @@ class _AddTurnoverViewState extends State<AddTurnoverView> {
       onPressed: () {
         _inputBankAccountIndex = index;
         setState(() {});
-        Navigator.pop(context);
+        Get.back();
       },
       child: Text(bankAccountsController.bankAccounts[index].name),
     );
@@ -83,19 +84,33 @@ class _AddTurnoverViewState extends State<AddTurnoverView> {
                     style: TextStyle(fontSize: 20.sp),
                   ),
                 TextFormField(
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.money),
-                    hintText: 'Mount',
-                  ),
-                  validator: (String value) {
-                    if (value.isEmpty || !Constants.isInteger(value)) {
-                      return 'this mount is invalid';
-                    } else {
-                      return null;
-                    }
-                  },
-                  onSaved: (String value) => _inputMount = int.parse(value),
-                ),
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.money),
+                      hintText: 'Mount',
+                    ),
+                    validator: (String value) {
+                      if (value.isEmpty || !Constants.isInteger(value))
+                        return 'this mount is invalid';
+                      else if (box.read('turnoverIndex') ==
+                              TurnoverType.Cost.index &&
+                          _inputBankAccountIndex != null &&
+                          bankAccountsController
+                                  .bankAccounts[_inputBankAccountIndex]
+                                  .balance <
+                              int.parse(value)) {
+                        return 'no enough balance';
+                      } else {
+                        return null;
+                      }
+                    },
+                    onSaved: (String value) {
+                      if (box.read('turnoverIndex') ==
+                          TurnoverType.Income.index)
+                        _inputMount = int.parse(value);
+                      else if (box.read('turnoverIndex') ==
+                          TurnoverType.Cost.index)
+                        _inputMount = -int.parse(value);
+                    }),
                 SizedBox(
                   height: 10,
                 ),
@@ -127,14 +142,16 @@ class _AddTurnoverViewState extends State<AddTurnoverView> {
                                 .bankAccounts[_inputBankAccountIndex].name,
                           ),
                     _inputBankAccountIndex == null
-                        ? Container()
+                        ? Container(
+                            height: 45,
+                          )
                         : IconButton(
                             onPressed: () {
                               _inputBankAccountIndex = null;
                               setState(() {});
                             },
                             icon: Icon(Icons.close),
-                          )
+                          ),
                   ],
                 )
               ],
@@ -150,6 +167,13 @@ class _AddTurnoverViewState extends State<AddTurnoverView> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
+                    bankAccountsController.bankAccounts[_inputBankAccountIndex]
+                        .addingBalance(_inputMount);
+                    print(_inputMount);
+                    bankAccountsController.updateBankAccount(
+                        bankAccountsController
+                                .bankAccounts[_inputBankAccountIndex]
+                            as BankAccount);
                     turnoverController.createTurnover(
                       Turnover(
                         mount: _inputMount,
@@ -162,7 +186,7 @@ class _AddTurnoverViewState extends State<AddTurnoverView> {
                         description: _inputDescription,
                       ),
                     );
-                    Navigator.pop(context);
+                    Get.back();
                   }
                 },
                 child: Text('Add'),

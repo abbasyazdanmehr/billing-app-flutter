@@ -35,6 +35,8 @@ class HomeView extends StatelessWidget {
 
     Widget addBlock(choiceText) {
       return TextButton(
+        style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(Constants.textColor)),
         onPressed: () {
           if (choiceText.contains('Accounts')) {
             Get.to(() => AddAccountView());
@@ -42,14 +44,14 @@ class HomeView extends StatelessWidget {
             Get.to(() => AddBillView());
           } else if (choiceText.contains('Incomes')) {
             box.write('turnoverIndex', TurnoverType.Income.index);
-            Get.to(() => AddTurnoverView());
+            Get.to(() => AddCostView());
           } else if (choiceText.contains('Costs')) {
             box.write('turnoverIndex', TurnoverType.Cost.index);
-            Get.to(() => AddTurnoverView());
+            Get.to(() => AddCostView());
           } else if (choiceText.contains('Future Cost')) {
             // Future Costs
             box.write('turnoverIndex', TurnoverType.FutureCost.index);
-            Get.to(() => AddTurnoverView());
+            Get.to(() => AddCostView());
           }
         },
         child: Constants.responsiveGlassBlock(
@@ -108,15 +110,65 @@ class HomeView extends StatelessWidget {
       );
     }
 
-    return Center(
-      child: SingleChildScrollView(
-        child: Constants.responsiveGlassBlock(
-          context: context,
-          heightRatio: 0.73,
-          widthRatio: 0.9,
-          content: blocks(),
+    backgroundPaint() {
+      return CustomPaint(
+        child: Container(
+          height: 300.0,
         ),
-      ),
+        painter: CurvePainter(),
+      );
+    }
+
+    return Stack(
+      children: [
+        //backgroundPaint(),
+        Center(
+          child: SingleChildScrollView(
+            child: Constants.responsiveGlassBlock(
+              context: context,
+              heightRatio: 0.73,
+              widthRatio: 0.9,
+              content: blocks(),
+            ),
+          ),
+        ),
+      ],
     );
+  }
+}
+
+class CurvePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Path path = Path();
+    Paint paint = Paint();
+
+    path.close();
+
+    paint.color = Constants.themeColor;
+    canvas.drawPath(path, paint);
+
+    path = Path();
+    path.close();
+
+    paint.color = Constants.themeColor;
+    canvas.drawPath(path, paint);
+
+    path = Path();
+    path.lineTo(0, size.height * 0.75);
+    path.quadraticBezierTo(size.width * 0.0, size.height * 0.55,
+        size.width * 0.22, size.height * 0.70);
+    path.quadraticBezierTo(
+        size.width * 0.75, size.height * 0.85, size.width, size.height * 0.60);
+    path.lineTo(size.width, 0);
+    path.close();
+
+    paint.color = Constants.themeColor;
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return oldDelegate != this;
   }
 }

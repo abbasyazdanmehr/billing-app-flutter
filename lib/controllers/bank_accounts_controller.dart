@@ -11,7 +11,7 @@ class BankAccountsController extends GetxController {
   }
 
   Future fetchBankAccountsFromDatabase() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     bankAccounts.value =
         await BankAccountsDatabase.instance.readAllBankAccount();
   }
@@ -20,6 +20,11 @@ class BankAccountsController extends GetxController {
     await BankAccountsDatabase.instance.createBankAccount(bankAccount);
     bankAccounts.add(bankAccount);
     print('new bank account created.');
+  }
+
+  updateBankAccount(BankAccount bankAccount) async {
+    await BankAccountsDatabase.instance.updateBankAccount(bankAccount);
+    print('bank account updated in database');
   }
 
   deleteBankAccount(id) async {

@@ -48,7 +48,7 @@ class _BaseViewState extends State<BaseView> {
       child: ElevatedButton(
         child: Text('All Turnovers'),
         onPressed: () {
-          Navigator.pop(context);
+          Get.back();
           box.write('turnoverIndex', TurnoverType.All.index);
           Get.to(() => TurnoversListView());
         },

@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 class Constants {
-  static const Color themeColor = Colors.green;
+  static const Color themeColor = Colors.deepPurple;
   static const Color textColor = Colors.black;
-  static const Color backgroundsColor = Colors.white;
+  static const Color backgroundsColor = Colors.amber;
   static const Color darkColor = Colors.black;
   static const Color lightColor = Colors.grey;
 
@@ -17,7 +17,7 @@ class Constants {
       actions: [
         IconButton(
             onPressed: () {
-              Get.to(SettingsView());
+              Get.to(() => SettingsView());
             },
             icon: Icon(Icons.settings))
       ],
@@ -50,27 +50,26 @@ class Constants {
           width: double.infinity,
           height: double.infinity,
           borderRadius: 10,
-          blur: 20,
+          blur: 5,
           alignment: Alignment.bottomCenter,
           border: 2,
           linearGradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xff778068).withOpacity(0.8),
-                Color(0xff6B8068)
-                    .withOpacity(0.6), // low: glass   high: plastic
+                Color(0xFFffffff).withOpacity(0.3),
+                Color(0xFFFFFFFF).withOpacity(0.1),
               ],
               stops: [
                 0.1,
-                0.8, // low: glass   high: plastic
+                0.9
               ]),
           borderGradient: LinearGradient(
             begin: Alignment.bottomRight,
             end: Alignment.topLeft,
             colors: [
-              Color(0xFFffffff).withOpacity(0.9),
-              Color((0xFFFFFFFF)).withOpacity(0.1),
+              Color(0xFFffffff).withOpacity(0.5),
+              Color((0xFFFFFFFF)).withOpacity(0.5),
             ],
           ),
           child: content,

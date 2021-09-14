@@ -66,4 +66,8 @@ class BankAccount {
       description: json[BankAccountsFields.description] as String,
     );
   }
+
+  addingBalance(int value) {
+    this.balance += value;
+  }
 }
