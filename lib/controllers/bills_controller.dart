@@ -21,6 +21,11 @@ class BillsController extends GetxController {
     print('new bank bill created.');
   }
 
+  updateBill(Bill bill) async {
+    await BillsDatabase.instance.updateBill(bill);
+    print('bill updated');
+  }
+
   deleteBill(id) async {
     await BillsDatabase.instance.deleteBill(id);
     bills.removeWhere((element) => element.id == id);

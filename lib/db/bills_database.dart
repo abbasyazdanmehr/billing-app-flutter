@@ -22,13 +22,14 @@ class BillsDatabase {
   Future<Database> _initDB(String dbName) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, dbName);
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 1, onCreate: createDB);
   }
 
-  Future _createDB(Database db, int version) async {
+  Future createDB(Database db, int version) async {
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     final intType = 'INTEGER NOT NULL';
     final textType = 'TEXT NOT NULL';
+    final boolType = 'BOOLEAN NOT NULL';
 
     await db.execute('''
     CREATE TABLE $tableBills (
@@ -36,9 +37,16 @@ class BillsDatabase {
       ${BillFields.mount} $intType,
       ${BillFields.description} $textType,
       ${BillFields.creditorName} $textType,
-      ${BillFields.deadLine} $textType
+      ${BillFields.deadLine} $textType,
+      ${BillFields.isPayment} $boolType
     )
     ''');
+  }
+
+  Future dropDB() async {
+    final db = await instance.database;
+
+    db.execute('''DROP TABLE IF EXISTS $tableBills''');
   }
 
   Future<Bill> createBill(Bill bill) async {

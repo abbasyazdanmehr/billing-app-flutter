@@ -112,12 +112,15 @@ class _AddBillViewState extends State<AddBillView> {
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    controller.createBill(Bill(
-                      mount: _inputMount,
-                      creditorName: _inputCreditorName,
-                      description: _inputDescription,
-                      deadLine: _inputDeadLine,
-                    ));
+                    controller.createBill(
+                      Bill(
+                        mount: _inputMount,
+                        creditorName: _inputCreditorName,
+                        description: _inputDescription,
+                        deadLine: _inputDeadLine,
+                        isPayment: false,
+                      ),
+                    );
                     Get.back();
                   }
                 },
