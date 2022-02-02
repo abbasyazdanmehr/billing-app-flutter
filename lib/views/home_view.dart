@@ -6,7 +6,6 @@ import 'package:billing_app/views/home_views/add_views/add_bill_view.dart';
 import 'package:billing_app/views/home_views/add_views/add_turnover_view.dart';
 import 'package:billing_app/views/home_views/list_views/bills_list_view.dart';
 import 'package:billing_app/views/home_views/list_views/turnovers_list_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -121,7 +120,7 @@ class HomeView extends StatelessWidget {
 
     return Stack(
       children: [
-        //backgroundPaint(),
+        // backgroundPaint(),
         Center(
           child: SingleChildScrollView(
             child: Constants.responsiveGlassBlock(

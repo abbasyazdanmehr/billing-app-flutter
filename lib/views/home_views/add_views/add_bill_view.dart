@@ -2,7 +2,6 @@ import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/bills_controller.dart';
 import 'package:billing_app/models/bill.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';

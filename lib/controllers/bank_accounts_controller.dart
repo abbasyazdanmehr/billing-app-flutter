@@ -11,7 +11,6 @@ class BankAccountsController extends GetxController {
   }
 
   Future fetchBankAccountsFromDatabase() async {
-    await Future.delayed(Duration(seconds: 1));
     bankAccounts.value =
         await BankAccountsDatabase.instance.readAllBankAccount();
   }
