@@ -11,7 +11,6 @@ class TurnoversController extends GetxController {
   }
 
   Future fetchTurnoversFromDatabase() async {
-    await Future.delayed(Duration(seconds: 2));
     turnovers.value = await TurnoversDatabase.instance.readAllTurnovers();
   }
 

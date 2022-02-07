@@ -11,7 +11,6 @@ class BillsController extends GetxController {
   }
 
   Future fetchBillsFromDatabase() async {
-    await Future.delayed(Duration(seconds: 2));
     bills.value = await BillsDatabase.instance.readAllBills();
   }
 
