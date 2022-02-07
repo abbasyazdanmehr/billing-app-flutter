@@ -109,18 +109,14 @@ class HomeView extends StatelessWidget {
       );
     }
 
-    backgroundPaint() {
-      return CustomPaint(
-        child: Container(
-          height: 300.0,
-        ),
-        painter: CurvePainter(),
-      );
-    }
-
     return Stack(
       children: [
-        // backgroundPaint(),
+        Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/wave7.jpg"),
+                  fit: BoxFit.cover)),
+        ),
         Center(
           child: SingleChildScrollView(
             child: Constants.responsiveGlassBlock(

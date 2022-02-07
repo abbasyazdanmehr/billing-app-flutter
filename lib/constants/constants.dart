@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 class Constants {
-  static const Color themeColor = Colors.deepPurple;
+  static const Color themeColor = Colors.cyan;
   static const Color textColor = Colors.black;
-  static const Color backgroundsColor = Colors.amber;
+  static const Color backgroundsColor = Colors.white;
   static const Color darkColor = Colors.black;
   static const Color lightColor = Colors.grey;
 
