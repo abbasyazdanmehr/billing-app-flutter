@@ -67,8 +67,8 @@ class HomeView extends StatelessWidget {
     choiceBlock(choiceText) {
       return Constants.responsiveGlassBlock(
         context: context,
-        widthRatio: 0.8,
-        heightRatio: 0.13,
+        widthRatio: 0.9,
+        heightRatio: 0.15,
         content: TextButton(
             onPressed: () {
               if (choiceText.contains('Accounts')) {
@@ -103,7 +103,7 @@ class HomeView extends StatelessWidget {
             choiceBlock('🧾 Bills'),
             choiceBlock('💰 Incomes'),
             choiceBlock('💵 Costs'),
-            choiceBlock('📈 Future Cost'),
+            //  choiceBlock('📈 Future Cost'),
           ],
         ),
       );
@@ -119,12 +119,7 @@ class HomeView extends StatelessWidget {
         ),
         Center(
           child: SingleChildScrollView(
-            child: Constants.responsiveGlassBlock(
-              context: context,
-              heightRatio: 0.73,
-              widthRatio: 0.9,
-              content: blocks(),
-            ),
+            child: blocks(),
           ),
         ),
       ],

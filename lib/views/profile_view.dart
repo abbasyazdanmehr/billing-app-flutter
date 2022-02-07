@@ -63,19 +63,31 @@ class ProfileView extends StatelessWidget {
       );
     }
 
-    return Center(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Constants.responsiveGlassBlock(
-              context: context,
-              heightRatio: 0.73,
-              widthRatio: 0.9,
-              content: blocks(),
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/wave3.jpg"),
+              fit: BoxFit.cover,
             ),
-          ],
+          ),
         ),
-      ),
+        Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Constants.responsiveGlassBlock(
+                  context: context,
+                  heightRatio: 0.73,
+                  widthRatio: 0.9,
+                  content: blocks(),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
