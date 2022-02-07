@@ -7,7 +7,7 @@ class AboutUsView extends StatelessWidget {
     return Scaffold(
       appBar: Constants.customAppBar(),
       body: Center(
-        child: Text("This is about us page!"),
+        child: Text("I work on it!"),
       ),
     );
   }

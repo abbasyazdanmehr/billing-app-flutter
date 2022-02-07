@@ -39,7 +39,9 @@ class TurnoversListView extends StatelessWidget {
                 controller.turnovers[index].bankAccountId != null
                     ? Text(
                         "account: " +
-                            controller.turnovers[index].bankAccountId
+                            getBankAccount(
+                                    controller.turnovers[index].bankAccountId)
+                                .name
                                 .toString(),
                         style: TextStyle(
                           fontSize: 22.sp,

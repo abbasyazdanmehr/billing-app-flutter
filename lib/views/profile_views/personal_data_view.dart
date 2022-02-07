@@ -6,7 +6,11 @@ class PersonalDataView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Constants.customAppBar(),
-      body: Container(),
+      body: Container(
+        child: Center(
+          child: Text("I work on it!"),
+        ),
+      ),
     );
   }
 }
