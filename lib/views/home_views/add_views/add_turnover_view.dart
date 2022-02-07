@@ -200,17 +200,25 @@ class _AddCostViewState extends State<AddCostView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Constants.responsiveGlassBlock(
-              context: context,
-              heightRatio: 0.8,
-              widthRatio: 0.9,
-              content: formFields(context),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/5390239.jpg"),
+                    fit: BoxFit.cover)),
+          ),
+          Center(
+            child: SingleChildScrollView(
+              child: Constants.responsiveGlassBlock(
+                context: context,
+                heightRatio: 0.8,
+                widthRatio: 0.9,
+                content: formFields(context),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
