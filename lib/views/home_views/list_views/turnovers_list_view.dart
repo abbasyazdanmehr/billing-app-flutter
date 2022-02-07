@@ -2,7 +2,6 @@ import 'package:billing_app/constants/constants.dart';
 import 'package:billing_app/controllers/turnovers_controller.dart';
 import 'package:billing_app/enums/turnover_type.dart';
 import 'package:billing_app/views/home_views/add_views/add_turnover_view.dart';
-import 'package:billing_app/views/home_views/detail_views/turnover_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -73,23 +72,11 @@ class TurnoversListView extends StatelessWidget {
     }
 
     block(index) {
-      return TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
-        onPressed: () {
-          Get.to(
-            () => TurnoverDetailView(
-              index: index,
-            ),
-          );
-        },
-        child: Constants.responsiveGlassBlock(
-          context: context,
-          heightRatio: 0.1,
-          widthRatio: 0.95,
-          content: turnoverContent(index),
-        ),
+      return Constants.responsiveGlassBlock(
+        context: context,
+        heightRatio: 0.1,
+        widthRatio: 0.95,
+        content: turnoverContent(index),
       );
     }
 

@@ -22,55 +22,43 @@ class BillsListView extends StatelessWidget {
     Widget billContent(index) {
       return Padding(
         padding: const EdgeInsets.all(10),
-        child: Align(
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                controller.bills[index].mount.toString() + ' \$',
-                style: TextStyle(
-                  fontSize: 22.sp,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "mount: " + controller.bills[index].mount.toString() + ' \$',
+                  style: TextStyle(
+                    fontSize: 28.sp,
+                    fontFamily: "serief",
+                  ),
                 ),
-              ),
-              Text(
-                showDateTime(controller.bills[index].deadLine),
-                style: TextStyle(fontSize: 15.sp, color: Constants.themeColor),
-              ),
-              PopupMenuButton<String>(
-                onSelected: (result) {
-                  if (result.contains('Delete')) {
-                    controller.deleteBill(controller.bills[index].id);
-                  } else if (result.contains('Edit')) {
-                  } else if (result.contains('Info')) {}
-                },
-                itemBuilder: (context) => <PopupMenuEntry<String>>[
-                  const PopupMenuItem<String>(
-                    child: Text('Delete!'),
-                    value: 'Delete!',
+                Text(
+                  "deadline: " + showDateTime(controller.bills[index].deadLine),
+                  style: TextStyle(
+                    fontSize: 15.sp,
+                    color: Constants.darkColor,
                   ),
-                  const PopupMenuItem<String>(
-                    child: Text('Edit!'),
-                    value: 'Edit!',
-                  ),
-                  const PopupMenuItem<String>(
-                    child: Text('Info!'),
-                    value: 'Info!',
-                  ),
-                ],
-              )
-            ],
-          ),
+                ),
+              ],
+            ),
+            IconButton(
+              onPressed: () {
+                controller.deleteBill(controller.bills[index].id);
+              },
+              icon: Icon(Icons.delete),
+            ),
+          ],
         ),
       );
     }
 
     block(index) {
-      return TextButton(
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-        ),
-        onPressed: () {
+      return InkWell(
+        onTap: () {
           Get.to(
             () => BillDetailView(
               index: index,
@@ -79,7 +67,7 @@ class BillsListView extends StatelessWidget {
         },
         child: Constants.responsiveGlassBlock(
             context: context,
-            heightRatio: 0.1,
+            heightRatio: 0.16,
             widthRatio: 0.95,
             content: billContent(index)),
       );
@@ -87,13 +75,25 @@ class BillsListView extends StatelessWidget {
 
     return Scaffold(
       appBar: Constants.customAppBar(),
-      body: Obx(() {
-        return ListView(
-          children: [
-            for (var i = 0; i < controller.bills.length; i++) block(i),
-          ],
-        );
-      }),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/1155007.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Obx(() {
+            return ListView(
+              children: [
+                for (var i = 0; i < controller.bills.length; i++) block(i),
+              ],
+            );
+          }),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {

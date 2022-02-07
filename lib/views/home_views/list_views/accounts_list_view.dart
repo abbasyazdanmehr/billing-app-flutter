@@ -76,9 +76,11 @@ class AccountsListView extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/1155007.jpg"),
-                    fit: BoxFit.cover)),
+              image: DecorationImage(
+                image: AssetImage("assets/images/1155007.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           Obx(
             () {
