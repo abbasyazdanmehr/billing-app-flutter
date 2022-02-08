@@ -135,15 +135,25 @@ class AddNoteView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Constants.responsiveGlassBlock(
-            context: context,
-            heightRatio: 0.7,
-            widthRatio: 0.9,
-            content: formFields(context),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/images/5390239.jpg"),
+                    fit: BoxFit.cover)),
           ),
-        ),
+          Center(
+            child: SingleChildScrollView(
+              child: Constants.responsiveGlassBlock(
+                context: context,
+                heightRatio: 0.7,
+                widthRatio: 0.9,
+                content: formFields(context),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

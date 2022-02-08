@@ -21,23 +21,57 @@ class _NotesListViewState extends State<NotesListView> {
 
   @override
   Widget build(BuildContext context) {
-    Widget accountContent(index) {
+    Future<void> _showMyDialog(int index) async {
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Description"),
+            content: SingleChildScrollView(
+              child: Text(notes[index].description),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  setState(() {});
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
+    Widget blockContent(index) {
       return Padding(
         padding: const EdgeInsets.all(10),
-        child: Align(
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                notes[index].title,
-                style: TextStyle(fontSize: 22.sp),
-              ),
-              notes[index].isImportant
-                  ? Icon(Icons.star)
-                  : Icon(Icons.star_border),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    _showMyDialog(index);
+                  },
+                  child: Text(
+                    notes[index].title,
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            notes[index].isImportant
+                ? Icon(Icons.star)
+                : Icon(Icons.star_border),
+          ],
         ),
       );
     }
@@ -45,9 +79,9 @@ class _NotesListViewState extends State<NotesListView> {
     block(index) {
       return Constants.responsiveGlassBlock(
           context: context,
-          heightRatio: 0.1,
+          heightRatio: 0.15,
           widthRatio: 0.95,
-          content: accountContent(index));
+          content: blockContent(index));
     }
 
     // List<Widget> childs = [
@@ -60,8 +94,20 @@ class _NotesListViewState extends State<NotesListView> {
         onRefresh: () async {
           await refreshNote();
         },
-        child: ListView(
-          children: List.generate(notes.length, (index) => block(index)),
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/1155007.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            ListView(
+              children: List.generate(notes.length, (index) => block(index)),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
