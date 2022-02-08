@@ -19,6 +19,6 @@ An app for basic managing bank accounts and planning for them.
 - [x] This is just for practice and I hope to be good app too.  
 - [x] I practice some popular packages in flutter in this app.  
 - [x] Codes are not very clean but I trid for cleaning and learned many things.  
-- [x] The state management for this app is GetX that I use from it for first time and probably it is not perfect for first
+- [x] The state management for this app is GetX that I use from it for first time and probably it is not perfect for first time.
 
 
