@@ -36,7 +36,8 @@ class TurnoversListView extends StatelessWidget {
                     fontFamily: "serief",
                   ),
                 ),
-                controller.turnovers[index].bankAccountId != null
+                getBankAccount(controller.turnovers[index].bankAccountId) !=
+                        null
                     ? Text(
                         "account: " +
                             getBankAccount(
