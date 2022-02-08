@@ -6,7 +6,7 @@ class ReportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text("I work on it!"),
+        child: Text("It is open for premium account!"),
       ),
     );
   }

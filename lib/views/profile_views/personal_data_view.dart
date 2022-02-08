@@ -8,7 +8,7 @@ class PersonalDataView extends StatelessWidget {
       appBar: Constants.customAppBar(),
       body: Container(
         child: Center(
-          child: Text("I work on it!"),
+          child: Text("It is open for premium account!"),
         ),
       ),
     );
