@@ -40,6 +40,7 @@ class AccountsListView extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
+                // ToDo: need to add bank account payment bills to history bills
                 controller.deleteBankAccount(controller.bankAccounts[index].id);
               },
               icon: Icon(Icons.delete),
