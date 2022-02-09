@@ -1,6 +1,7 @@
 # Billing App
 
 An app for basic managing bank accounts and planning for them.  
+![Download](https://github.com/abbasyazdanmehr/billing-app-flutter/releases/download/v1.0.0/app-release.apk)
 
 </br>
 
