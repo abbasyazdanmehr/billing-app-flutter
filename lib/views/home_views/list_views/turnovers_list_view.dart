@@ -27,15 +27,25 @@ class TurnoversListView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "mount: " +
-                      controller.turnovers[index].mount.toString() +
-                      ' \$',
-                  style: TextStyle(
-                    fontSize: 28.sp,
-                    fontFamily: "serief",
-                  ),
-                ),
+                controller.turnovers[index].mount > 0
+                    ? Text(
+                        "mount: " +
+                            controller.turnovers[index].mount.toString() +
+                            ' \$',
+                        style: TextStyle(
+                          fontSize: 28.sp,
+                          fontFamily: "serief",
+                        ),
+                      )
+                    : Text(
+                        "mount: " +
+                            (-controller.turnovers[index].mount).toString() +
+                            ' \$',
+                        style: TextStyle(
+                          fontSize: 28.sp,
+                          fontFamily: "serief",
+                        ),
+                      ),
                 getBankAccount(controller.turnovers[index].bankAccountId) !=
                         null
                     ? Text(

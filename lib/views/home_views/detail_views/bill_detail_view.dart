@@ -125,7 +125,7 @@ class _BillDetailViewState extends State<BillDetailView> {
                                     billsController.bills[widget.index]);
                                 turnoversController.createTurnover(
                                   Turnover(
-                                    mount: billsController
+                                    mount: -billsController
                                         .bills[widget.index].mount,
                                     bankAccountId:
                                         _inputBankAccountIndex == null
