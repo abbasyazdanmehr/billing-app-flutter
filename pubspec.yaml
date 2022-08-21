@@ -32,7 +32,6 @@ dependencies:
   get_storage: ^2.0.3
   glassmorphism: ^2.0.1 
   sizer: ^2.0.13
-  shared_preferences: ^2.0.7
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
   datetime_picker_formfield: ^2.0.0

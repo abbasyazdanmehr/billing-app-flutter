@@ -100,7 +100,7 @@ class HomeView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             choiceBlock('🏛️ Accounts'),
-            choiceBlock('🧾 Bills'),
+            choiceBlock('📄 Bills'),
             choiceBlock('💰 Incomes'),
             choiceBlock('💵 Costs'),
             //  choiceBlock('📈 Future Cost'),
